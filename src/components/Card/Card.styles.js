@@ -13,7 +13,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 0,
+    borderRadius: 5,
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
@@ -41,7 +41,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: 'white',
-    fontFamily: 'Avenir',
+    // fontFamily: 'Avenir',
     textShadowColor: 'black',
     textShadowRadius: 10,
   },

@@ -11,12 +11,12 @@ const Card = ({ card }) => (
   >
     <Image
       style={styles.image}
-      source={card.photo}
+      source={{uri:card.urlImage}}
       resizeMode="cover"
     />
     <View style={styles.photoDescriptionContainer}>
       <Text style={styles.text}>
-        {`${card.name}, ${card.price}`}
+        {`${card.productionName}, ${card.price}`}$
       </Text>
     </View>
   </View>
@@ -24,8 +24,10 @@ const Card = ({ card }) => (
 
 Card.propTypes = {
   card: shape({
-    photo: ImageSourcePropType,
-    name: string,
+    urlImage: string,
+    description :string,
+    action:string,
+    productionName: string,
     price: number,
   }).isRequired,
 }

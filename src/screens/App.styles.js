@@ -21,7 +21,7 @@ export default StyleSheet.create({
     fontSize: 10,
     color: 'black',
     paddingBottom: 20,
-    fontFamily: 'Avenir',
+    // fontFamily: 'Avenir',
   },
   overlayWrapper: {
     flexDirection: 'column',

@@ -1,63 +1,147 @@
 
       import React from 'react';
-      import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
+      import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Button,TextInput} from 'react-native';
+      import IconButton  from '../components/IconButton/IconButton'
       import * as firebase from 'firebase';
-      import 'firebase/firestore';
+      import { SearchBar } from 'react-native-elements';
       function Item({ item }) {
         return (
-          <View style={styles.listItem}>
+          <View style={styles.listItem} >
             <Image source={{uri:item.urlImage}}  style={{width:60, height:60,borderRadius:30}} />
-            <View style={{alignItems:"center",flex:1}}>
-              <Text style={{fontWeight:"bold"}}>{item.name}</Text>
+            <View style={{alignItems:"center",flex:1}} >
+              <Text style={{fontWeight:"bold"}}>{item.productionName}</Text>
               <Text>{item.price}$</Text>
+              <Text style={{color:"green"}}>{item.action}</Text>
             </View>
-            <TouchableOpacity style={{height:50,width:50, justifyContent:"center",alignItems:"center"}}>
-        <Text style={{color:"green"}}>{item.actions}</Text>
+           
+            <TouchableOpacity>
+            <IconButton
+    name="delete"
+    color="red"
+    size={20}
+    onPress={() => OnDeleteFav(item.key)}
+  />
+      
             </TouchableOpacity>
           </View>
         );
       }
-      
+    
+    
+      const   dbConnection=  firebase.firestore().collection("productsTinder");
+      const  OnDeleteFav=(key)=>
+      {
+        dbConnection.doc(key).delete().then(function() {
+          console.log("Document successfully deleted!");
+      }).catch(function(error) {
+          console.error("Error removing document: ", error);
+      });
+      }
+
       export default class Favorite extends React.Component {
         constructor() {
           super();
         this.state = {
          
-          collectionTinder:[]
+          collectionTinder:[],
+          search: '',
+          searchText: '',
+          filterByValue: null
         
         };
       }
+      render_FlatList_header = () => {
+
+        var header_View = (
+    
+        <View>
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          placeholder="Type here to translate!"
+          onChangeText={text =>this.onSearchInputChange(text) }
+          value={this.state.searchText}
+        />
+        </View>
+        );
+    
+        return header_View ;
+    
+      };
       componentDidMount() {
-        this.getCollections();
+       this.getCollections();
        
       }
+      onSearchInputChange = (text) => {
+        const filterByValue = dbConnection.where("action", "==", "Left");
+        this.setState({searchText: text, collectionTinder: filterByValue})
+      }
+      renderHeader = () => {
+        return (
+          <SearchBar
+            placeholder="Type Here..."
+            lightTheme
+            round
+            onChangeText={text => this.searchFilterFunction(text)}
+            autoCorrect={false}
+            value={this.state.value}
+          />
+        );
+      };
       getCollections=()=>{
-        const imagesC = [];
-        firebase.firestore().collection("productsTinder")
-        .get()
-        .then(querySnapshot=> {
-            querySnapshot.forEach(doc=> {
-              const { name,urlImage,price,actions } = doc.data();
-              imagesC.push({ key:doc.id,name,urlImage,price,actions});
+        let  imagesC = [];
+      var tinderCollections = dbConnection.onSnapshot(querySnapshot=> {
+         imagesC =[];
+        this.setState({collectionTinder:imagesC});
+        console.log(this.state.collectionTinder[0]);
+        querySnapshot.forEach(doc=>{
+       
+          const {productionName,urlImage,price,action ,id} = doc.data();
+          
+              imagesC.push({ key:doc.id,productionName,urlImage,price,action,id});
            this.setState({collectionTinder:imagesC});
                 console.log(doc.id, " => ", doc.data());
             });
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        });
+         });
+         
+        // firebase.firestore().collection("productsTinder")
+        // .get()
+        // .then(querySnapshot=> {
+        //     querySnapshot.forEach(doc=> {
+        //       const { productionName,urlImage,price,action } = doc.data();
+        //       imagesC.push({ key:doc.id,productionName,urlImage,price,action});
+        //    this.setState({collectionTinder:imagesC});
+        //         console.log(doc.id, " => ", doc.data());
+        //     });
+        // })
+        // .catch(function(error) {
+        //     console.log("Error getting documents: ", error);
+        // });
       }
       
       
       
         render(){
           return (
-            <View style={styles.container}>
+            <View style={styles.container}  >
               <FlatList
+              ListHeaderComponent={this.renderHeader}
                 style={{flex:1}}
                 data={this.state.collectionTinder}
-                renderItem={({ item }) => <Item item={item}/>}
-                keyExtractor={item => item.email}
+                renderItem={({ item }) =>// if(this.state.collectionTinder.length>0) {return(<Item item={item}/> ); }  else{return()}  }}
+                {
+                  if(this.state.collectionTinder.length>0){
+                      return(
+                        console.log("data"),
+                        <Item item={item}/>
+                       
+                      );
+                  }else{
+                      return(
+                          console.log("nodata")// OR WHATEVER YOU WANT HERE
+                      );
+                  }
+              }}
+                keyExtractor={(item, index) => index.toString()}
               />
             </View>
           );

@@ -41,7 +41,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: 'white',
-    fontFamily: 'Avenir',
+    // fontFamily: 'Avenir',
     textShadowColor: 'black',
     textShadowRadius: 10,
   },

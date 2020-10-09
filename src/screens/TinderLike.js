@@ -217,39 +217,132 @@
 //   },
 // });
 import React, { useRef } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text,Platform ,StyleSheet} from 'react-native'
 import Swiper from 'react-native-deck-swiper'
-
-import  {photoCards}  from '../constants'
 import Card  from '../components/Card/Card'
 import IconButton  from '../components/IconButton/IconButton'
 import OverlayLabel from '../components/OverlayLabel/OverlayLabel'
 import styles from './App.styles'
+import * as firebase from 'firebase';
+const tinderCards = [
+  {
+    productionName: 'Tech',
+      description:'',
+    action:'', 
+    price: 22,
+    urlImage: "https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F1.jpg?alt=media&token=9b93411f-b658-4b68-9258-a426f2bc3250",
+    id: 1,
+  },
 
-const TinderLike = () => {
-  const useSwiper = useRef(null).current
+  {
+    productionName: 'Device',
+      description:'',
+    action:'',
+    price: 29,
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F3.jpg?alt=media&token=84b56b4d-ec7b-449c-ad74-f6da559791e6',
+    id: 3,
+  },
+  {
+    productionName: 'TV',
+      description:'',
+    action:'',
+    price: 300,
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F4.jpg?alt=media&token=3b3ebfbf-ea73-440f-990c-68abbf2eae51',
+    id: 4,
+  },
+  {
+    productionName: 'Head Phone',
+      description:'',
+    action:'',
+    price: 240,
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F5.jpg?alt=media&token=9ba9e5d3-f3ce-4c4e-abbd-d9068c4ac2d0',
+    id: 'TvPCUHten1o',
+  },
+  {
+    productionName: 'Tech',
+      description:'',
+    action:'',
+    price: 26,
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F6.jpg?alt=media&token=63076312-de58-4c18-ad06-43aea74a2908',
+    id: 5,
+  },
+  {
+    productionName: 'Phone',
+      description:'',
+    action:'',
+    price: 300,
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F10.jpg?alt=media&token=400dca73-ca13-4d88-a484-7feb176ec993',
+    id: 6,
+  },
+  {
+    productionName: 'Device',
+    description:'',
+    action:'',
+    price: 24,
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F8.jpg?alt=media&token=21fc6550-1c9f-456e-bf34-9a60f0c57a19',
+    id: 7,
+  }
+ 
+]
 
-  const handleOnSwipedLeft = () => useSwiper.swipeLeft()
-  const handleOnSwipedTop = () => useSwiper.swipeTop()
-  const handleOnSwipedRight = () => useSwiper.swipeRight()
+const connectionDB = firebase.firestore().collection("productsTinder");
+export default class Home extends React.Component {
+  constructor(props) { 
+    super(props);
+    this.state = { 
+        email: "",
+        password: "",
+        items:[],
+        useSwiper:"",
+        photoCards: tinderCards
+    };
+     
+}
 
-  return (
+ handleOnSwipedLeft = () => this.useSwiper.swipeLeft()
+handleOnSwipedTop = () => this.useSwiper.swipeTop()
+ handleOnSwipedRight = () => {  
+   var docDocRef = firebase.firestore().collection("productsTinder");
+  
+   this.setState({photoCards : docDocRef});
+
+   console.log( this.state.photoCards[0]);
+}
+onSwipeAction= (swipeProduct,action) => {
+  if (swipeProduct!=null) {
+        swipeProduct.action=action;
+        connectionDB.add(swipeProduct)
+      .then(function(connectionDB) {
+        console.log("Document written with ID: ", connectionDB.id);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+      
+      };
+  }
+  render() {
+    return (
+    
     <View
       style={styles.container}
     >
       <View style={styles.swiperContainer}>
         <Swiper
-          ref={useSwiper}
+          useViewOverflow={Platform.OS === 'ios'}
+          ref={ this.state.useSwipe}
           animateCardOpacity
-          containerStyle={styles.container}
-          cards={photoCards}
-          renderCard={card => <Card card={card} />}
+          containerStyle={styles.swiperContainer}
+          cards={this.state.photoCards}
+          renderCard={card => card !=null ? <Card card={card}   />: <Text title="nodata"/>}
           cardIndex={0}
           backgroundColor="white"
           stackSize={2}
           infinite
           showSecondCard
-          animateOverlayLabelsOpacity
+          animateOverlayLabelsOpacity       
+          onSwipedRight={(index) => this.onSwipeAction(this.state.photoCards[index],"Right") }
+          onSwipedLeft={(index) =>  this.onSwipeAction(this.state.photoCards[index],"Left")}
           overlayLabels={{
             left: {
               title: 'NOPE',
@@ -262,32 +355,33 @@ const TinderLike = () => {
               title: 'LIKE',
               element: <OverlayLabel label="LIKE" color="#4CCC93" />,
               style: {
-                wrapper: {
-                  ...styles.overlayWrapper,
-                  alignItems: 'flex-start',
-                  marginLeft: 30,
-                },
+                wrapper: styles.overlayWrapper,
+                // wrapper: {
+                //   ...styles.overlayWrapper,
+                //   alignItems: 'flex-start',
+                //   marginLeft: 30,
+                // },
               },
             },
           }}
         />
       </View>
-      {/* <View style={styles.buttonsContainer}>
+      <View style={styles.buttonsContainer}>
         <IconButton
           name="close"
-          onPress={handleOnSwipedLeft}
+          onPress={this.handleOnSwipedLeft}
           color="white"
           backgroundColor="#E5566D"
         />
-        <IconButton
+        {/* <IconButton
           name="star"
-          onPress={handleOnSwipedTop}
+          onPress={this.handleOnSwipedTop}
           color="white"
           backgroundColor="#3CA3FF"
-        />
+        /> */}
         <IconButton
           name="heart"
-          onPress={handleOnSwipedRight}
+          onPress={this.handleOnSwipedRight}
           color="white"
           backgroundColor="#4CCC93"
         />
@@ -299,9 +393,10 @@ const TinderLike = () => {
            
         </Text>
       </View>
-      */}
+     
     </View>
-  )
+    );
+  }
 }
 
-export default TinderLike
+

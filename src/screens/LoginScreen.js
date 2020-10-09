@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View ,Alert,ScrollView } from 'react-native';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
@@ -10,7 +10,7 @@ import { theme } from '../core/theme';
 import { emailValidator, passwordValidator } from '../core/utils';
 import * as firebase from 'firebase';
 import Auth from '../core/Auth';
-import Home from './Home';
+
 let app = firebase.initializeApp(Auth.FirebaseConfig);
 let db = app.database();
 let itemsref = db.ref('items');
@@ -25,6 +25,9 @@ export default class LoginScreen  extends React.Component {
         password: "",
         items:[],
     };
+    console.ignoredYellowBox = [
+      'Setting a timer'
+  ];
 }
 
 
@@ -98,7 +101,7 @@ export default class LoginScreen  extends React.Component {
                     autoCorrect={false}
                     onKeyPress={ (event) => {
                       if(event.nativeEvent.key == "Enter"){
-                        { this.props.navigation.navigate('Home');}
+                        { this._onLoginPressed()}
                       } 
                       
                     }}

@@ -1,65 +1,78 @@
-const photoCards = [
+const tinderCards = [
   {
-    name: 'Tech',
+    productionName: 'Tech',
+      description:'',
+    action:'', 
     price: 22,
-    photo: require('../assets/1.jpg'),
-    key: 'caseex6qfO4TPMYyhorner',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F1.jpg?alt=media&token=9b93411f-b658-4b68-9258-a426f2bc3250',
+    id: 1,
   },
+
   {
-    name: 'Mobile',
-    price: 28,
-    photo: require('../assets/2.jpg'),
-    key: 'ozda-XbeP0k',
-  },
-  {
-    name: 'Device',
+    productionName: 'Device',
+      description:'',
+    action:'',
     price: 29,
-    photo: require('../assets/3.jpg'),
-    key: 'nBywXevf_jE-',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F3.jpg?alt=media&token=84b56b4d-ec7b-449c-ad74-f6da559791e6',
+    id: 3,
   },
   {
-    name: 'TV',
+    productionName: 'TV',
+      description:'',
+    action:'',
     price: 300,
-    photo: require('../assets/4.jpg'),
-    key: 'ZHy0efLnzVc',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F4.jpg?alt=media&token=3b3ebfbf-ea73-440f-990c-68abbf2eae51',
+    id: 4,
   },
   {
-    name: 'Head Phone',
+    productionName: 'Head Phone',
+      description:'',
+    action:'',
     price: 240,
-    photo: require('../assets/5.jpg'),
-    key: 'TvPCUHten1o',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F5.jpg?alt=media&token=9ba9e5d3-f3ce-4c4e-abbd-d9068c4ac2d0',
+    id: 'TvPCUHten1o',
   },
   {
-    name: 'Tech',
+    productionName: 'Tech',
+      description:'',
+    action:'',
     price: 26,
-    photo: require('../assets/6.jpg'),
-    key: 'dlbiYGwEe9U',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F6.jpg?alt=media&token=63076312-de58-4c18-ad06-43aea74a2908',
+    id: 5,
   },
   {
-    name: 'Phone',
+    productionName: 'Phone',
+      description:'',
+    action:'',
     price: 300,
-    photo: require('../assets/7.jpg'),
-    key: 'Ml4tr2WO7JE',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F10.jpg?alt=media&token=400dca73-ca13-4d88-a484-7feb176ec993',
+    id: 6,
   },
   {
-    name: 'Device',
+    productionName: 'Device',
+      description:'',
+    action:'',
     price: 24,
-    photo: require('../assets/8.jpg'),
-    key: 'mFcc5b_t74Q',
-  },
-  {
-    name: 'TV',
-    price: 28,
-    photo: require('../assets/9.jpg'),
-    key: "Ty4f_NOFO60'",
-  },
-  {
-    name: 'Tech',
-    price: 30,
-    photo: require('../assets/10.jpg'),
-    key: "AvLHH8qYbAI'",
-  },
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F8.jpg?alt=media&token=21fc6550-1c9f-456e-bf34-9a60f0c57a19',
+    id: 7,
+  }
+  // {
+  //   productionName: 'TV',
+  //     description:'',
+  
+  //   price: 28,
+  //   urlImage: ../assets/9.jpg'),
+  //   id: 8,
+  // },
+  // {
+  //   productionName: 'Tech',
+  //     description:'',
+  
+  //   price: 30,
+  //   urlImage: require('../assets/10.jpg'),
+  //   id: 9,
+  // },
  
 ]
 
-export default photoCards
+export default tinderCards

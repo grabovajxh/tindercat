@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   overlayLabelText: {
     fontSize: 25,
-    fontFamily: 'Avenir',
+    // fontFamily: 'Avenir',
     textAlign: 'center',
   },
 })

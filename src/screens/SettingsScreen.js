@@ -43,36 +43,34 @@ let addImage = async(item) =>{
     console.log('Uploaded a blob or file!');
   });
 }
-function Tinder (name, image, age ) {
-      this.name = name;
-      this.image = image;
-      this.age = age;
-  }
-  
+
 
 export default class SettingsScreen extends React.Component {
   constructor() {
     super();
+    console.ignoredYellowBox = [
+      'Setting a timer'
+  ];
   this.state = {
     currentIndex: 0,
     items:[],
     images:[],
     downloadURLs:[],
-    tinder : new Tinder(),
+  
     collectionTinder:[]
    // url:""
   };
 }
 
-  componentDidMount() {
+  // componentDidMount() {
  
-    const ref = firebase.storage().ref().child("asset/G1.png");
-    ref.getDownloadURL().then(data => {
-       this.setState({ url: data})
-    });
-    this.getUrl();
-    this.getCollections();
-  }
+  //   const ref = firebase.storage().ref().child("asset/G1.png");
+  //   ref.getDownloadURL().then(data => {
+  //      this.setState({ url: data})
+  //   });
+  //   this.getUrl();
+  //   this.getCollections();
+  // }
    // const ref = firebase.storage().ref('https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/assets%2Fhttps%3A%2Fimages.unsplash.com%2Fphoto-1482822683622-00effad5052e%3Fixlib%3Drb-1.2.1%26ixid%3DeyJhcHBfaWQiOjEyMDd9%26auto%3Dformat%26fit%3Dcrop%26w%3D1050%26q%3D80?alt=media&token=9abdfdd7-b015-40df-8923-dcc5124b75cb');
 //const url =  ref.getDownloadURL();
 //this.setState({ items:url})
@@ -93,72 +91,72 @@ export default class SettingsScreen extends React.Component {
     //     let dataitem = Object.values(data);
     //     this.setState({ items:dataitem});
     //   });
-  getCollections=()=>{
-    const imagesC = [];
-    firebase.firestore().collection("users")
-    .get()
-    .then(querySnapshot=> {
-        querySnapshot.forEach(doc=> {
-          const { name, images, age } = doc.data();
-          imagesC.push({ key:doc.id,doc,name,images,age});
-       this.setState({collectionTinder:imagesC});
-            console.log(doc.id, " => ", doc.data());
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
-  }
-    getUrl=()=>{
-    const listRef = firebase.storage().ref().child("asset/");
+//   getCollections=()=>{
+//     const imagesC = [];
+//     firebase.firestore().collection("users")
+//     .get()
+//     .then(querySnapshot=> {
+//         querySnapshot.forEach(doc=> {
+//           const { name, images, age } = doc.data();
+//           imagesC.push({ key:doc.id,doc,name,images,age});
+//        this.setState({collectionTinder:imagesC});
+//             console.log(doc.id, " => ", doc.data());
+//         });
+//     })
+//     .catch(function(error) {
+//         console.log("Error getting documents: ", error);
+//     });
+//   }
+//     getUrl=()=>{
+//     const listRef = firebase.storage().ref().child("asset/");
  
-let imgURL=[];
-listRef.listAll().then(res=> {
-res.prefixes.forEach(function (folderrREF){
+// let imgURL=[];
+// listRef.listAll().then(res=> {
+// res.prefixes.forEach(function (folderrREF){
 
-  this.setState({images:res.items});
-});
-
-
-res.items.forEach(itemRef=>{
-  itemRef.getDownloadURL().then(url=> {
-   console.log(url);
-   imgURL.push({name:url});
-   this.setState({downloadURLs:imgURL});
-// this.setState({downloadURLs :"test"});//downloadURLs[itemRef.name]
-// downloadURLs= url;
-//this.downloadURLs.push({name:url});
+//   this.setState({images:res.items});
+// });
 
 
-});
+// res.items.forEach(itemRef=>{
+//   itemRef.getDownloadURL().then(url=> {
+//    console.log(url);
+//    imgURL.push({name:url});
+//    this.setState({downloadURLs:imgURL});
+// // this.setState({downloadURLs :"test"});//downloadURLs[itemRef.name]
+// // downloadURLs= url;
+// //this.downloadURLs.push({name:url});
 
-});
 
-})
+// });
 
-.catch(function(error) {
-console.log(error);
-console.log("error error");
-// Uh-oh, an error occurred!
+// });
 
-});
-    }
-    handleChange = e => {
-      this.setState({
-        name: e.nativeEvent.text
-      });
-    };
-    handleSubmit = () => {
-      addItem(this.state.name);
-    // addImage(this.state.name);
-    };
+// })
+
+// .catch(function(error) {
+// console.log(error);
+// console.log("error error");
+// // Uh-oh, an error occurred!
+
+// });
+//     }
+//     handleChange = e => {
+//       this.setState({
+//         name: e.nativeEvent.text
+//       });
+//     };
+//     handleSubmit = () => {
+//       addItem(this.state.name);
+//     // addImage(this.state.name);
+//     };
 
   render() {
 
     return (
       <Background>
     <Paragraph>
-      Find  your favourite product!
+    Personal Information
     </Paragraph>
     {/* <View>
    
@@ -176,7 +174,7 @@ console.log("error error");
 				)}
 			</View> */}
       <View >
-				<Text >Personal Information</Text>
+		
 				<TextInput onChange={this.handleChange} />
 				<TouchableHighlight underlayColor="white"onPress={this.handleSubmit}>
 
