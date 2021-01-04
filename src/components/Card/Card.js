@@ -22,14 +22,14 @@ const Card = ({ card }) => (
   </View>
 )
 
-Card.propTypes = {
-  card: shape({
-    urlImage: string,
-    description :string,
-    action:string,
-    productionName: string,
-    price: number,
-  }).isRequired,
-}
+// Card.propTypes = {
+//   card: shape({
+//     urlImage: string,
+//     description :string,
+//     action:string,
+//     productionName: string,
+//     price: number,
+//   }).isRequired,
+// }
 
 export default Card

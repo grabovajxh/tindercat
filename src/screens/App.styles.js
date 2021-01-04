@@ -14,7 +14,8 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal: '15%',
+    paddingHorizontal: '1%',
+    paddingTop:'1%',
   },
   copyright: {
     textAlign: 'center',
@@ -30,4 +31,32 @@ export default StyleSheet.create({
     marginTop: 30,
     marginLeft: -30,
   },
+  modalView: {
+    marginTop: '45%',
+    marginLeft:'5%',
+    marginRight:'5%',
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    paddingBottom:20,
+    textAlign: "center"
+  }
 })

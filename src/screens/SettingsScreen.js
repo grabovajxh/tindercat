@@ -2,9 +2,10 @@ import React, { memo } from 'react';
 import Background from '../components/Background';
 import Paragraph from '../components/Paragraph';
 import * as firebase from 'firebase';
+import IconButton from '../components/IconButton/IconButton';
 import 'firebase/firestore';
-import { TouchableOpacity, StyleSheet,ListItem, ScrollView, Text, View , TextInput,Alert,TouchableHighlight, Image } from 'react-native';
-import { Button } from 'react-native-paper';
+import { TouchableOpacity, SectionList,StyleSheet,ListItem, ScrollView,TouchableWithoutFeedback, Text, View , TextInput,Alert,TouchableHighlight, Image, Modal } from 'react-native';
+import { Button,List,Colors } from 'react-native-paper';
 let addItem = async(item) => {
 	// firebase.database().ref('/items').push({
 	// 	name: item
@@ -56,177 +57,177 @@ export default class SettingsScreen extends React.Component {
     items:[],
     images:[],
     downloadURLs:[],
+    users:"",
   
-    collectionTinder:[]
+    collectionTinder:[],
+    modalVisible: false
    // url:""
   };
 }
-
-  // componentDidMount() {
- 
-  //   const ref = firebase.storage().ref().child("asset/G1.png");
-  //   ref.getDownloadURL().then(data => {
-  //      this.setState({ url: data})
-  //   });
-  //   this.getUrl();
-  //   this.getCollections();
-  // }
-   // const ref = firebase.storage().ref('https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/assets%2Fhttps%3A%2Fimages.unsplash.com%2Fphoto-1482822683622-00effad5052e%3Fixlib%3Drb-1.2.1%26ixid%3DeyJhcHBfaWQiOjEyMDd9%26auto%3Dformat%26fit%3Dcrop%26w%3D1050%26q%3D80?alt=media&token=9abdfdd7-b015-40df-8923-dcc5124b75cb');
-//const url =  ref.getDownloadURL();
-//this.setState({ items:url})
-   //const db = firebase.database().ref().child("items");
-  //  db.on('value', snapshot => {
-
-      
-  //   let data = snapshot.val();
-  //   let dataitem = Object.values(data);
-  //   this.setState({ items:dataitem});
-  // });
-   //const db = firebase.storage().ref().child("users");
-  // db.getDownloadURL().then((url) => { this.setState({ items: url })});
-    // db.on('value', snapshot => {
-
-      
-    //     let data = snapshot.val();
-    //     let dataitem = Object.values(data);
-    //     this.setState({ items:dataitem});
-    //   });
-//   getCollections=()=>{
-//     const imagesC = [];
-//     firebase.firestore().collection("users")
-//     .get()
-//     .then(querySnapshot=> {
-//         querySnapshot.forEach(doc=> {
-//           const { name, images, age } = doc.data();
-//           imagesC.push({ key:doc.id,doc,name,images,age});
-//        this.setState({collectionTinder:imagesC});
-//             console.log(doc.id, " => ", doc.data());
-//         });
-//     })
-//     .catch(function(error) {
-//         console.log("Error getting documents: ", error);
-//     });
-//   }
-//     getUrl=()=>{
-//     const listRef = firebase.storage().ref().child("asset/");
- 
-// let imgURL=[];
-// listRef.listAll().then(res=> {
-// res.prefixes.forEach(function (folderrREF){
-
-//   this.setState({images:res.items});
-// });
-
-
-// res.items.forEach(itemRef=>{
-//   itemRef.getDownloadURL().then(url=> {
-//    console.log(url);
-//    imgURL.push({name:url});
-//    this.setState({downloadURLs:imgURL});
-// // this.setState({downloadURLs :"test"});//downloadURLs[itemRef.name]
-// // downloadURLs= url;
-// //this.downloadURLs.push({name:url});
-
-
-// });
-
-// });
-
-// })
-
-// .catch(function(error) {
-// console.log(error);
-// console.log("error error");
-// // Uh-oh, an error occurred!
-
-// });
-//     }
-//     handleChange = e => {
-//       this.setState({
-//         name: e.nativeEvent.text
-//       });
-//     };
-//     handleSubmit = () => {
-//       addItem(this.state.name);
-//     // addImage(this.state.name);
-//     };
-
+componentDidMount() {
+  
+   var name ="";
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log(user.email);
+    name= user.email.substr(0, user.email.indexOf('@')); 
+   this.setState({users:name});
+  
+    
+  });
+}
+setModalVisible(visible) {
+  this.setState({modalVisible: visible});
+}
+GetSectionListItem = item => {
+  //Function for click on an item
+  this.scrollRef.scrollToLocation({itemIndex:18})
+  Alert.alert(item);
+};
+FlatListItemSeparator = () => {
+  return (
+    //Item Separator
+    <View
+      style={{ height: 0.01, width: '100%', backgroundColor: '#C8C8C8' }}
+    />
+  );
+};
   render() {
-
-    return (
-      <Background>
-    <Paragraph>
-    Personal Information
-    </Paragraph>
-    {/* <View>
-   
-				{this.state.items.length > 0 ? (
-          this.state.items.map((item, index) => {
-            return (
-              <View key={index} >
-                <Text >{item.name}</Text>
-              </View>
-            );
-          })
-					
-				) : (
-					<Text>No items</Text>
-				)}
-			</View> */}
-      <View >
-		
-				<TextInput onChange={this.handleChange} />
-				<TouchableHighlight underlayColor="white"onPress={this.handleSubmit}>
-
-           <View>
-					{/* < Button>Add</Button> */}
-       </View>
-				</TouchableHighlight>
-        {/* <ScrollView >
-          {
-            this.state.collectionTinder.map((item, i) => {
-              return (
-                <View>
-              <Text>{item.name}</Text>
-              <Image source={{uri:item.images}} style={{ width: 305, height: 159 }}/> 
-              </View>
-              );
-            })
-          }
-      </ScrollView> */}
-        {/* <View>
-        {Object.keys(this.state.image).map((d, key) => {
- 
+    return ( 
+      <View>
+       
+     <View>
+      <Image source={{uri: 'http://i.imgur.com/IGlBYaC.jpg'}} style={s.container}>  
+      </Image>
+  
+   <View style={{
+           top: '15%',
+           right: 0,      
+           left: '35%',
+           padding:20,
+           margin:'5%', 
+            width:80,
+            height:80,
+              backgroundColor:'#68a0cf',
+              borderRadius:40,
+              borderWidth: 3,
+              borderColor: '#fff'}}>
+        <Text >{this.state.users}</Text>
+  </View>
+  </View>
+      <List.Section  style={styles.SectionListItemStyle}>
+    <List.Subheader>Hi User, {this.state.users} </List.Subheader>
+    
+    <List.Item
+      title="Notification"
+      left={() => <List.Icon color={Colors.blue500} icon="bell" />}
+    />
+       <List.Item
+      title="Payment methods"
+      left={() => <List.Icon color={Colors.blue500} icon="id-card" />  }
+    />
+    <List.Item
+      title="Contacts preferences"
+      left={() => <List.Icon color={Colors.blue500} icon="message" />}
+    />
+    <List.Item
+    
+      title="Social accounts"
+      left={() => <List.Icon color={Colors.blue500} icon="account" />}
+    />          
+  </List.Section>
+  <List.Section>
+  <List.Item
+      title="Gift cards & vouchers"
+      left={() =>  <List.Icon color={Colors.blue500} icon="gift" />}
+    />
+  </List.Section>
+  <List.Section>
+    <List.Item
+      title="Sign out"
+      onPress={() => this.props.navigation.navigate('LoginScreen')}
+      left={() =>  <List.Icon color={Colors.blue500} icon="logout" />}
       
-        <Text key={key}>
-          {d.name}
-        </Text>
-     
-     
-    })}
+    />
+  </List.Section>
+    
+   </View>
+    // <View style={styles.container}>
+    // <Text>My account</Text>
+    //   <TouchableWithoutFeedback>
+    //     <View style={styles.button}>
+    //       <Text>My details</Text>
+    //     </View>
+    //   </TouchableWithoutFeedback>
+      
+    //    <TouchableWithoutFeedback>
+    //     <View style={styles.button}>
+    //       <Text>Log Out</Text>
+    //     </View>
+    //   </TouchableWithoutFeedback>
+    // </View>
 
   
- </View> */}
-              {/* <View>
-   
-   {this.state.downloadURLs.length > 0 ? (
-     this.state.downloadURLs.map((image, index) => {
-       return (
-         <View key={index} >
-          <Image source={{ uri: image.name }} style={{ width: 305, height: 159 }} />
-         </View>
-       );
-     })
-     
-   ) : (
-     <Text>No items</Text>
-   )}
- </View>*/}
-        
-        </View> 
-			
-     
-  </Background>
   )
         }
       }
+      const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          justifyContent: "center",
+          paddingHorizontal: 10,
+          width:'100%'
+        },
+     
+        listItem: {
+          margin: 10,
+          padding: 10,
+          backgroundColor: "#FFF",
+          width: "100%",
+          flex: 1,
+          alignSelf: "center",
+          flexDirection: "row",
+          borderRadius: 5
+        },
+        button: {
+          alignItems: "center",
+          backgroundColor: "#DDDDDD",
+          padding: 10,
+          marginBottom:10
+        },
+      
+        SectionHeaderStyle: {
+          backgroundColor: '#CDDC89',
+          fontSize: 20,
+          padding: 5,
+          color: '#fff',
+        },
+      
+        SectionListItemStyle: {
+          fontSize: 15,        
+          padding:10,
+          color: '#000',
+          backgroundColor: '#F5F5F5',
+        },
+      });
+      const s = StyleSheet.create({
+
+        overlay: {
+          
+          top: '50%',
+          right: 0,
+          bottom: 0,
+          left: '5%',
+          width: 100, height: 100, 
+          borderRadius: 100 / 2,      
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        container: {
+        position:'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+              width: '100%',
+              height: '70%',
+         
+      
+      }});

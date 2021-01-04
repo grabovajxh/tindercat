@@ -10,10 +10,13 @@ export default StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 2,
+      
     },
+    margin:0,
     shadowRadius: 6,
     shadowOpacity: 0.3,
     elevation: 2,
     padding: 15,
+   
   },
 })

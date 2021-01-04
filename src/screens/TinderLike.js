@@ -217,13 +217,17 @@
 //   },
 // });
 import React, { useRef } from 'react'
-import { View, Text,Platform ,StyleSheet} from 'react-native'
+import { View, Text,Platform ,StyleSheet,Modal,TouchableHighlight,TextInput} from 'react-native'
+import IconButton from '../components/IconButton/IconButton'
 import Swiper from 'react-native-deck-swiper'
 import Card  from '../components/Card/Card'
-import IconButton  from '../components/IconButton/IconButton'
+
 import OverlayLabel from '../components/OverlayLabel/OverlayLabel'
 import styles from './App.styles'
 import * as firebase from 'firebase';
+import 'firebase/firestore';
+import { Alert } from 'react-native'
+
 const tinderCards = [
   {
     productionName: 'Tech',
@@ -256,7 +260,7 @@ const tinderCards = [
     action:'',
     price: 240,
     urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F5.jpg?alt=media&token=9ba9e5d3-f3ce-4c4e-abbd-d9068c4ac2d0',
-    id: 'TvPCUHten1o',
+    id: 2,
   },
   {
     productionName: 'Tech',
@@ -294,23 +298,98 @@ export default class Home extends React.Component {
         password: "",
         items:[],
         useSwiper:"",
-        photoCards: tinderCards
+        photoCards: tinderCards,
+        photoCardsT:tinderCards,
+        swiperCard : this.swiperCards,
+        right : false,
+        modalVisible: false, 
+        index : 1,
+        price:0,
+
     };
      
 }
 
- handleOnSwipedLeft = () => this.useSwiper.swipeLeft()
+// componentDidMount(){
+ 
+//   this.handleOnSwipedRight;
+// }
+setModalVisible(visible) {
+ console.log(this.state.index);
+  this.setState({modalVisible: visible});
+}
+currentIndex=(i)=>{
+
+this.setState({index:i});
+this.setState({modalVisible: true});
+ console.log("currentIndex"+this.state.index);
+}
+  swiperCards=()=>{
+   
+   
+  }
+
+//  handleOnSwipedLeft = () => {
+//      return (
+      
+//       <View style={{marginTop: 22}}>
+//       <Modal
+//         animationType="slide"
+//         transparent={false}
+//         visible={this.state.modalVisible}
+//         onRequestClose={() => {
+//           Alert.alert('Modal has been closed.');
+//         }}>
+//         <View style={{marginTop: 22}}>
+//           <View>
+//             <Text>Hello World!</Text>
+
+//             <TouchableHighlight
+//               onPress={() => {
+//                 this.setModalVisible(!this.state.modalVisible);
+//               }}>
+//               <Text>Hide Modal</Text>
+//             </TouchableHighlight>
+//           </View>
+//         </View>
+//       </Modal>
+
+//       <TouchableHighlight
+//         onPress={() => {
+//           this.setModalVisible(true);
+//         }}>
+//         <Text>Show Modal</Text>
+//       </TouchableHighlight>
+//     </View>
+   
+//   );
+//   console.log("testpro");
+//  }
 handleOnSwipedTop = () => this.useSwiper.swipeTop()
  handleOnSwipedRight = () => {  
-   var docDocRef = firebase.firestore().collection("productsTinder");
   
-   this.setState({photoCards : docDocRef});
-
-   console.log( this.state.photoCards[0]);
+  const filteredCards = this.state.photoCards
+      .filter(contact => {
+        let contactLowercase = (
+          contact.productionName
+        ).toLowerCase();
+        let searchTermLowercase = "";
+          searchTermLowercase = "Device".toLowerCase();
+        return contactLowercase.indexOf(searchTermLowercase) > -1;
+      });
+    this.setState({right:true});
+    this.setState({ photoCardsT: filteredCards?filteredCards:null });
+    this.state.photoCardsT.forEach(snap=>
+      console.log(snap.urlImage));
+  
 }
 onSwipeAction= (swipeProduct,action) => {
+  console.log(swipeProduct.id);
+  let i = 0;
+  i = swipeProduct.id;
   if (swipeProduct!=null) {
         swipeProduct.action=action;
+        
         connectionDB.add(swipeProduct)
       .then(function(connectionDB) {
         console.log("Document written with ID: ", connectionDB.id);
@@ -320,83 +399,157 @@ onSwipeAction= (swipeProduct,action) => {
       });
       
       };
-  }
-  render() {
-    return (
+     
     
+  }
+  updatePrice=(id)=>
+  {
+     connectionDB.doc("0Xd0q4EjE2gg1iexaeyP").update({
+       "price":id
+     });
+     this.setState({modalVisible:false})
+  }
+
+  render() {
+    
+   return (
     <View
       style={styles.container}
     >
       <View style={styles.swiperContainer}>
-        <Swiper
-          useViewOverflow={Platform.OS === 'ios'}
-          ref={ this.state.useSwipe}
-          animateCardOpacity
-          containerStyle={styles.swiperContainer}
-          cards={this.state.photoCards}
-          renderCard={card => card !=null ? <Card card={card}   />: <Text title="nodata"/>}
-          cardIndex={0}
-          backgroundColor="white"
-          stackSize={2}
-          infinite
-          showSecondCard
-          animateOverlayLabelsOpacity       
-          onSwipedRight={(index) => this.onSwipeAction(this.state.photoCards[index],"Right") }
-          onSwipedLeft={(index) =>  this.onSwipeAction(this.state.photoCards[index],"Left")}
-          overlayLabels={{
-            left: {
-              title: 'NOPE',
-              element: <OverlayLabel label="NOPE" color="#E5566D" />,
-              style: {
-                wrapper: styles.overlayWrapper,
-              },
-            },
-            right: {
-              title: 'LIKE',
-              element: <OverlayLabel label="LIKE" color="#4CCC93" />,
-              style: {
-                wrapper: styles.overlayWrapper,
-                // wrapper: {
-                //   ...styles.overlayWrapper,
-                //   alignItems: 'flex-start',
-                //   marginLeft: 30,
-                // },
-              },
-            },
-          }}
-        />
+      <Swiper
+      cardIndex={0}
+      onTapCard = {(index)=>this.setState({index:this.state.photoCards[index].id},()=>this.currentIndex(this.state.photoCards[index].id))}
+      useViewOverflow={Platform.OS === 'ios'}
+      ref={this.state.useSwipe}
+      animateCardOpacity
+      containerStyle={styles.swiperContainer}
+      //this.setState({index:this.state.photoCards[index].id}
+      cards={this.state.right==true?this.state.photoCardsT:this.state.photoCards}
+      renderCard={card =>  {
+        if(this.state.photoCardsT.length>0){
+         if(card !=null){
+                  return(                                     
+                    <Card card={card}/>                      
+                     );
+                  }else{
+                  return(
+                      console.log("null")// OR WHATEVER YOU WANT HERE   
+                  );
+              }
+            }
+            }}          
+      backgroundColor="white"
+      stackSize={2}
+      infinite
+      showSecondCard
+      animateOverlayLabelsOpacity       
+      onSwipedRight={(index) => this.onSwipeAction(this.state.photoCards[index],"Right") }
+      onSwipedLeft={(index) =>  this.onSwipeAction(this.state.photoCards[index],"Left")}
+      overlayLabels={{
+        left: {
+          title: 'NOPE',
+          element: <OverlayLabel label="NOPE" color="#E5566D" />,
+          style: {
+            wrapper: styles.overlayWrapper,
+          },
+        },
+        right: {
+          title: 'LIKE',
+          element: <OverlayLabel label="LIKE" color="#4CCC93" />,
+          style: {
+            wrapper: styles.overlayWrapper,
+            // wrapper: {
+            //   ...styles.overlayWrapper,
+            //   alignItems: 'flex-start',
+            //   marginLeft: 30,
+            // },
+          },
+        },
+      }}
+    />
+      {/* {this.state.swiperCard.call(this.state)} */}
       </View>
-      <View style={styles.buttonsContainer}>
+      
+      <View style={{marginTop: 22}}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={this.state.modalVisible}
+        
+        >
+        <View >
+            <View style={styles.modalView}> 
+              <Text> Update Price</Text>
+             
+              {this.state.photoCards
+              .filter(obj=>obj.id==this.state.index)
+              .map(item => (   
+           <View style={styles.modalText} key={item.id}>
+             <Text>Production Name</Text>
+            <Text>{item.productionName}</Text>
+            <Text>Price</Text>
+            <TextInput  style={{ width:300, borderWidth: 1}}  onChangeText={value => this.setState({price :value})}>{item.price}</TextInput> 
+           <View >
+        
+
+          </View>
+        
+          </View>
+        ))
+      }
+              
+              <View  style={styles.buttonsContainer }>
+            
+              <IconButton name="edit"
+               onPress={() => {
+               this.updatePrice(this.state.price);}}
+                color="white"
+                backgroundColor="#E5566D"
+               
+              />
+
+             
+           
+               </View>
+          </View>
+        </View>
+      </Modal>
+
+     
+    </View>
+      {/* <View  style={styles.buttonsContainer } >
         <IconButton
-          name="close"
-          onPress={this.handleOnSwipedLeft}
+       
+          name="edit"
+          onPress={() => {
+            this.setModalVisible(true);
+          }}
+
           color="white"
           backgroundColor="#E5566D"
-        />
-        {/* <IconButton
-          name="star"
-          onPress={this.handleOnSwipedTop}
-          color="white"
-          backgroundColor="#3CA3FF"
-        /> */}
+        /> 
+       
         <IconButton
           name="heart"
           onPress={this.handleOnSwipedRight}
           color="white"
           backgroundColor="#4CCC93"
         />
-      </View> 
-      <View style={styles.swipeTextContainer}>
+      </View>  */}
+      {/* <View style={styles.swipeTextContainer}>
         <Text
           style={styles.copyright}
         >
            
         </Text>
-      </View>
+     
+    </View> */}
      
     </View>
     );
+    
   }
+  
 }
-
 
