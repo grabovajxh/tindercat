@@ -88,7 +88,7 @@ const HomeRoute = createSwitchNavigator(
       },
      
       tabBarLabel: <Text >Home</Text>,
-      tabBarIcon: props => <FontAwesome name="home" size={24} color="white" />,
+      tabBarIcon: props => <FontAwesome name="home" size={24} color="#64ECC7" />,
     },
   }
 );
@@ -105,7 +105,7 @@ const analyticsRoute = createSwitchNavigator(
       },
      
       tabBarLabel: <Text >Analytics</Text>,
-      tabBarIcon: props => <MaterialCommunityIcons name="google-analytics" size={24} color="white" />,
+      tabBarIcon: props => <MaterialCommunityIcons name="google-analytics" size={24} color="#64ECC7" />,
     },
   }
 );
@@ -123,7 +123,7 @@ const profileRoute = createSwitchNavigator(
       },
      
       tabBarLabel: <Text >Profile</Text>,
-      tabBarIcon: props => <FontAwesome name="user" size={24} color="white" />,
+      tabBarIcon: props => <FontAwesome name="user" size={24} color="#64ECC7" />,
     },
   }
 );
@@ -141,7 +141,7 @@ const tinderRoute = createSwitchNavigator(
       },
     
       tabBarLabel: <Text >Swipe</Text>,
-      tabBarIcon: props => <MaterialCommunityIcons name="gesture-swipe" size={24} color="white" />,
+      tabBarIcon: props => <MaterialCommunityIcons name="gesture-swipe" size={24} color="#64ECC7" />,
     },
   }
 );
@@ -155,7 +155,7 @@ const FavoriteRoute = createSwitchNavigator(
     navigationOptions: {
      
       tabBarLabel: <Text >Favorite</Text>,
-      tabBarIcon: props => <FontAwesome name="heart" size={24} color="white" />,
+      tabBarIcon: props => <FontAwesome name="heart" size={24} color="#64ECC7" />,
       
     },
   }
@@ -171,7 +171,7 @@ const BottomRoutes = createMaterialBottomTabNavigator(
   },
   {
     initialRouteName: 'HomeRoute',
-    activeColor: '#fff',
+    activeColor: '#000',
     inactiveColor: 'rgba(255,255,255,0.5)',
     labeled: true,
    backgroundColor:'#000', 
