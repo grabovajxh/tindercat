@@ -29,51 +29,7 @@ const RootStackScreen = ({navigation}) => (
     </RootStack.Navigator>)
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator()
-// {
-  
-//   HomeScreen,
-//   LoginScreen,
-//   RegisterScreen,
-//   ForgotPasswordScreen,
-//   Dashboard,
-//   MenuNavigationScreen,
 
-// },
-// {
-//   initialRouteName: 'HomeScreen',
-//   headerMode: 'none',
-// }
-// );
-// function Navigators()
-// {
-//   return(
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Home">
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="Login" component={LoginScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   )
-
-// };
-// const Routes = () => (
-//   <Navigator>
-
-    
-//     <Screen name="Home" component={HomeScreen} />
-//     <Screen name="Login" component={LoginScreen} />
-//   </Navigator>
-// );
-// export default function Router() {
-//   return (
-//     <NavigationContainer>
-      
-//       <Routes/>
-//     </NavigationContainer>
-//   );
-// };
-
-//export default createAppContainer(Router);
 
 const HomeRoute = createSwitchNavigator(
   {
