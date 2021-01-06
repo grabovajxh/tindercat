@@ -27,7 +27,7 @@ const dbConnection = firebase.firestore().collection("productsTinder");
         <View style={{ alignItems: "center", flex: 1 }} >
           <Text style={{ fontWeight: "bold" }}>{item.productionName}</Text>
           <Text>{item.price}$</Text>
-          <Text style={{ color: "green" }}>{item.action}</Text>
+          <Text style={{ color: "#DA8730" }}>{item.action}</Text>
         </View>
   
         <TouchableOpacity>

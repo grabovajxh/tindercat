@@ -68,7 +68,7 @@ export default class LoginScreen  extends React.Component {
      
       
       <TextInput
-      style={{ backgroundColor: '#64ECC7',width: '100%',height:'6%',textAlign:'center',borderRadius:'40', }}
+      style={{ backgroundColor: '#ddd',border: '1px solid black', width: '100%',height:'6%',paddingLeft:20,borderRadius:'40', }}
       value={this.state.email}
       onChangeText={(text) => { this.setState({email: text}) }}
       placeholder="Email"
@@ -95,7 +95,7 @@ export default class LoginScreen  extends React.Component {
         // error={!!password.error}
         // errorText={password.error}
         // secureTextEntry
-        style={{ backgroundColor: '#64ECC7',width: '100%',height:'6%',textAlign:'center',borderRadius:'40', marginTop:'10%'}}
+        style={{ backgroundColor: '#ddd',width: '100%',height:'6%',paddingLeft:20,borderRadius:'40', marginTop:'10%'}}
         value={this.state.password}
                     onChangeText={(text) => { this.setState({password: text}) }}
                     placeholder="Password"
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   row: {
     justifyContent: 'center',
-    marginTop: 1,
+    marginTop: 90,
     
   },
   label: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize:20,
     textAlign:'center',
-    color: theme.colors.primary,
+    color: '#DA8730',
     marginTop:15,
     
   },

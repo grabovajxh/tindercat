@@ -107,7 +107,7 @@ FlatListItemSeparator = () => {
            margin:'5%', 
             width:80,
             height:80,
-              backgroundColor:'#68a0cf',
+              backgroundColor:'#DA8730',
               borderRadius:40,
               borderWidth: 3,
               borderColor: '#fff'}}>
@@ -119,33 +119,33 @@ FlatListItemSeparator = () => {
     
     <List.Item
       title="Notification"
-      left={() => <List.Icon color={Colors.blue500} icon="bell" />}
+      left={() => <List.Icon color={Colors.orange500} icon="bell" />}
     />
        <List.Item
       title="Payment methods"
-      left={() => <List.Icon color={Colors.blue500} icon="id-card" />  }
+      left={() => <List.Icon color={Colors.orange500} icon="id-card" />  }
     />
     <List.Item
       title="Contacts preferences"
-      left={() => <List.Icon color={Colors.blue500} icon="message" />}
+      left={() => <List.Icon color={Colors.orange500} icon="message" />}
     />
     <List.Item
     
       title="Social accounts"
-      left={() => <List.Icon color={Colors.blue500} icon="account" />}
+      left={() => <List.Icon color={Colors.orange500} icon="account" />}
     />          
   </List.Section>
   <List.Section>
   <List.Item
       title="Gift cards & vouchers"
-      left={() =>  <List.Icon color={Colors.blue500} icon="gift" />}
+      left={() =>  <List.Icon color={Colors.orange500} icon="gift" />}
     />
   </List.Section>
   <List.Section>
     <List.Item
       title="Sign out"
       onPress={() => this.props.navigation.navigate('LoginScreen')}
-      left={() =>  <List.Icon color={Colors.blue500} icon="logout" />}
+      left={() =>  <List.Icon color={Colors.orange500} icon="logout" />}
       
     />
   </List.Section>
