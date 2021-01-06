@@ -1,15 +1,16 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View ,Alert,ScrollView } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View ,Alert,ScrollView,TextInput } from 'react-native';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import TextInput from '../components/TextInput';
+// import TextInput from '../components/TextInput';
 import BackButton from '../components/BackButton';
 import { theme } from '../core/theme';
 import { emailValidator, passwordValidator } from '../core/utils';
 import * as firebase from 'firebase';
 import Auth from '../core/Auth';
+import { color } from 'react-native-reanimated';
 
 let app = firebase.initializeApp(Auth.FirebaseConfig);
 let db = app.database();
@@ -64,9 +65,10 @@ export default class LoginScreen  extends React.Component {
       {/* <BackButton goBack={() => this.props.navigation.navigate('HomeScreen')} /> */}
 
       <Logo />
-      <Header>Welcome back </Header>
+     
       
       <TextInput
+      style={{ backgroundColor: '#64ECC7',width: '100%',height:'6%',textAlign:'center',borderRadius:'40', }}
       value={this.state.email}
       onChangeText={(text) => { this.setState({email: text}) }}
       placeholder="Email"
@@ -93,6 +95,7 @@ export default class LoginScreen  extends React.Component {
         // error={!!password.error}
         // errorText={password.error}
         // secureTextEntry
+        style={{ backgroundColor: '#64ECC7',width: '100%',height:'6%',textAlign:'center',borderRadius:'40', marginTop:'10%'}}
         value={this.state.password}
                     onChangeText={(text) => { this.setState({password: text}) }}
                     placeholder="Password"
@@ -113,6 +116,7 @@ export default class LoginScreen  extends React.Component {
           onPress={() => this.props.navigation.navigate('ForgotPasswordScreen')}
         >
           <Text style={styles.label}>Forgot your password?</Text>
+          
         </TouchableOpacity>
       </View>
 
@@ -121,7 +125,8 @@ export default class LoginScreen  extends React.Component {
       </Button>
 
       <View style={styles.row}>
-        <Text style={styles.label}>Don’t have an account? </Text>
+        <Text style={styles.label}>Don’t have an account? 
+        </Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('RegisterScreen')}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
@@ -132,20 +137,33 @@ export default class LoginScreen  extends React.Component {
 
 const styles = StyleSheet.create({
   forgotPassword: {
-    width: '100%',
-    alignItems: 'flex-end',
-    marginBottom: 24,
+    width: '50%',
+    height:20,
+    fontSize:20,
+    alignItems: 'center',
+    borderRadius:40,
+    marginTop: 10,
+    marginBottom:20,
+    
+    color: 'black',
   },
   row: {
-    flexDirection: 'row',
-    marginTop: 4,
+    justifyContent: 'center',
+    marginTop: 1,
+    
   },
   label: {
-    color: theme.colors.secondary,
+    color: 'black',
+    marginTop: 5,
+    
   },
   link: {
     fontWeight: 'bold',
+    fontSize:20,
+    textAlign:'center',
     color: theme.colors.primary,
+    marginTop:15,
+    
   },
 });
 
