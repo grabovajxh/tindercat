@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import TextInput from '../components/TextInput';
 import { theme } from '../core/theme';
 import Button from '../components/Button';
+import LoginScreen from './LoginScreen';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: '', error: '' });
@@ -21,6 +22,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
     }
 
     navigation.navigate('LoginScreen');
+   
+  
   };
 
   return (
@@ -28,7 +31,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
      
 
       <Logo />
-
+<BackButton goBack={() =>navigation.navigate('LoginScreen')}/>
       <Header>Restore Password</Header>
 
       <TextInput

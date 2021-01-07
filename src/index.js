@@ -16,7 +16,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons , FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import Favorite from './screens/Favorite';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
+import { createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import WelcomeScreen  from './screens/WelcomeScreen';
 import { DrawerContent } from './screens/Drawer';
 const {Navigator, Screen} = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -29,51 +30,7 @@ const RootStackScreen = ({navigation}) => (
     </RootStack.Navigator>)
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator()
-// {
-  
-//   HomeScreen,
-//   LoginScreen,
-//   RegisterScreen,
-//   ForgotPasswordScreen,
-//   Dashboard,
-//   MenuNavigationScreen,
 
-// },
-// {
-//   initialRouteName: 'HomeScreen',
-//   headerMode: 'none',
-// }
-// );
-// function Navigators()
-// {
-//   return(
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Home">
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="Login" component={LoginScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   )
-
-// };
-// const Routes = () => (
-//   <Navigator>
-
-    
-//     <Screen name="Home" component={HomeScreen} />
-//     <Screen name="Login" component={LoginScreen} />
-//   </Navigator>
-// );
-// export default function Router() {
-//   return (
-//     <NavigationContainer>
-      
-//       <Routes/>
-//     </NavigationContainer>
-//   );
-// };
-
-//export default createAppContainer(Router);
 
 const HomeRoute = createSwitchNavigator(
   {
@@ -88,7 +45,7 @@ const HomeRoute = createSwitchNavigator(
       },
      
       tabBarLabel: <Text >Home</Text>,
-      tabBarIcon: props => <FontAwesome name="home" size={24} color="#64ECC7" />,
+      tabBarIcon: props => <FontAwesome name="home" size={24} color="#DA8730" />,
     },
   }
 );
@@ -105,7 +62,7 @@ const analyticsRoute = createSwitchNavigator(
       },
      
       tabBarLabel: <Text >Analytics</Text>,
-      tabBarIcon: props => <MaterialCommunityIcons name="google-analytics" size={24} color="#64ECC7" />,
+      tabBarIcon: props => <MaterialCommunityIcons name="google-analytics" size={24} color="#DA8730" />,
     },
   }
 );
@@ -123,7 +80,7 @@ const profileRoute = createSwitchNavigator(
       },
      
       tabBarLabel: <Text >Profile</Text>,
-      tabBarIcon: props => <FontAwesome name="user" size={24} color="#64ECC7" />,
+      tabBarIcon: props => <FontAwesome name="user" size={24} color="#DA8730" />,
     },
   }
 );
@@ -141,7 +98,7 @@ const tinderRoute = createSwitchNavigator(
       },
     
       tabBarLabel: <Text >Swipe</Text>,
-      tabBarIcon: props => <MaterialCommunityIcons name="gesture-swipe" size={24} color="#64ECC7" />,
+      tabBarIcon: props => <MaterialCommunityIcons name="gesture-swipe" size={24} color="#DA8730" />,
     },
   }
 );
@@ -155,12 +112,26 @@ const FavoriteRoute = createSwitchNavigator(
     navigationOptions: {
      
       tabBarLabel: <Text >Favorite</Text>,
-      tabBarIcon: props => <FontAwesome name="heart" size={24} color="#64ECC7" />,
+      tabBarIcon: props => <FontAwesome name="heart" size={24} color="#DA8730" />,
       
     },
   }
 );
+ const loginSc= createSwitchNavigator(
+   
+    {
+      WelcomeScreen,
 
+      LoginScreen,
+      RegisterScreen,
+      ForgotPasswordScreen
+    }
+    , {
+      initialRouteName: 'WelcomeScreen',
+      
+    }
+   
+ )
 const BottomRoutes = createMaterialBottomTabNavigator(
   {
     HomeRoute,
@@ -171,10 +142,10 @@ const BottomRoutes = createMaterialBottomTabNavigator(
   },
   {
     initialRouteName: 'HomeRoute',
-    activeColor: '#000',
+    activeColor: '#DA8730',
     inactiveColor: 'rgba(255,255,255,0.5)',
     labeled: true,
-   backgroundColor:'#000', 
+   backgroundColor:'#DA8730', 
    borderRadius:100
 
   }
@@ -216,11 +187,11 @@ function MainTabNavigator() {
 }
 const EntryPoint = createSwitchNavigator(
   {
-    LoginScreen,
+    loginSc,
     BottomRoutes,
   },
   {
-    initialRouteName: 'LoginScreen',
+    initialRouteName: 'loginSc',
   }
 );
 

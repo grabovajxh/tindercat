@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     left: 10,
   },
   image: {
-    width: 24,
-    height: 24,
+    width: 34,
+    height: 34,
   },
 });
 

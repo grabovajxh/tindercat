@@ -2,14 +2,15 @@ import React, { memo } from 'react';
 import { Image, StyleSheet } from 'react-native';
 
 const Logo = () => (
-  <Image source={require('../assets/tinder-catalog.png')} style={styles.image} />
+  <Image source={require('../assets/fotologo.png')} style={styles.image} />
 );
 
 const styles = StyleSheet.create({
   image: {
-    width: 168,
-    height: 168,
-    marginBottom: 1,
+    width: 122,
+    height: 155,
+    marginBottom: 30,
+    marginTop: 30,
   },
 });
 

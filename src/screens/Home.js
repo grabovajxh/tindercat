@@ -594,7 +594,7 @@ export default class Home extends React.Component {
           selectedColor='#fff'
           bold='true'
           height={60}
-          buttonColor='#68ebc7'
+          buttonColor='#DA8730'
           borderColor='#fff'
           hasPadding
           options={[

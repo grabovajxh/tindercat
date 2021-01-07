@@ -20,11 +20,17 @@ const Button = ({ mode, style, children, ...props }) => (
 
 const styles = StyleSheet.create({
   button: {
-    width: '80%',
-    marginVertical: 10,
+    width: '35%',
+    height: 50,
+    marginVertical: 5,
+    borderRadius:30,
+    justifyContent: 'center',
+    backgroundColor:'#ddd',
+    
+    
   },
   text: {
-    fontWeight: 'bold',
+    
     fontSize: 15,
     lineHeight: 26,
   },
