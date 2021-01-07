@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as firebase from 'firebase';
  import Preview from '../components/FlatSlider/Preview';
+ import PreviewList from '../components/FlatSlider/PreviewList';
  import FlatListSlider from '../components/FlatSlider/FlatListSlider';
 import SwitchSelector from "react-native-switch-selector";
 
@@ -360,34 +361,58 @@ export default class Home extends React.Component {
       collectionTinder: [],
       modalVisible: false,
       data: [
+        
         {
           image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+            'https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/2299060/2018/7/30/7584b116-2a2c-4fb1-881c-af58cc484b181532944603854-Tokyo-Talkies-Women-Black-Printed-Maxi-Dress-4791532944603727-1.jpg',
+          desc:
+            'Dress',
+        },
+        {
+          image:
+          'https://cdn-images.farfetch-contents.com/14/55/48/85/14554885_22201159_600.jpg',
+          desc:
+            'Coat',
+        },
+        {
+          image:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhtVrVvqVCtqVsvZSHJCaD_1wZHSMUayGw&usqp=CAU',
+          desc:
+            'Jeans',
+        },
+        {
+          image:
+          'https://media.missguided.com/i/missguided/Y9206187_01',
+          desc:
+            'Hoodies',
+        },{
+          image:
+          'https://hypebeast.com/image/2020/02/nike-top-10-best-selling-sneakers-list-2019-01.jpg',
           desc: 'Shoes',
         },
         {
           image:
-            'https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80',
+            'https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/2299060/2018/7/30/7584b116-2a2c-4fb1-881c-af58cc484b181532944603854-Tokyo-Talkies-Women-Black-Printed-Maxi-Dress-4791532944603727-1.jpg',
           desc:
-            'Shoes',
+            'Dress',
         },
         {
           image:
-            'https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+          'https://cdn-images.farfetch-contents.com/14/55/48/85/14554885_22201159_600.jpg',
           desc:
-            'Shoes',
+            'Coat',
         },
         {
           image:
-            'https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIhtVrVvqVCtqVsvZSHJCaD_1wZHSMUayGw&usqp=CAU',
           desc:
-            'Shoes',
+            'Jeans',
         },
         {
           image:
-            'https://images.unsplash.com/photo-1584271854089-9bb3e5168e32?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80',
+          'https://media.missguided.com/i/missguided/Y9206187_01',
           desc:
-            'Shoes',
+            'Hoodies',
         },
       ],
       // url:""
@@ -510,7 +535,7 @@ export default class Home extends React.Component {
           </View>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingTop: '15%', paddingLeft: '5%', paddingRight: '5%' }}>
             <Image
-              source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} style={{
+              source={{ uri: 'https://image.flaticon.com/icons/png/512/194/194938.png' }} style={{
                 height: 60,
                 width: 60,
                 borderRadius: 30
@@ -519,20 +544,21 @@ export default class Home extends React.Component {
           </View>
         </View>
         <View >
-          <SafeAreaView>
+        <SafeAreaView>
             <ScrollView>
 
               <FlatListSlider
                 data={this.state.data}
-                width={280}
-                timer={4000}
+                width={80}
+               timer={4000}
+               loop={true}
                 component={<Preview />}
                 onPress={item => alert(JSON.stringify(item))}
                 indicatorActiveWidth={10}
                 contentContainerStyle={styles.contentStyle}
               />
             </ScrollView>
-          </SafeAreaView>
+            </SafeAreaView>
         </View>
        
         {/* <View style={styles.container}>
@@ -558,6 +584,8 @@ export default class Home extends React.Component {
               </View>
             );
           })} */}
+        
+          
         <View  style={{flexDirection:'column',alignSelf:'center',justifyContent:'center',width:'70%',marginTop:'5%'}}>
         <SwitchSelector
           initial={0}
@@ -575,7 +603,34 @@ export default class Home extends React.Component {
           ]}
         />
       </View>
+     
+       
+      <View>
+      <View style={{ flex: 1, flexDirection: 'row', paddingTop: '5%', paddingLeft: '5%'}}>
+          
+               <Image
+               source={require('../assets/SHOE2.png')} style={{
+                height: 200,
+                width: 200,
+                borderRadius: 1
+              }}
+            />
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row',  paddingRight: '5%' }}>
+          
+          <Image
+          source={require('../assets/SHOE2.png')} style={{
+           height: 200,
+           width: 200,
+           borderRadius: 1
+         }}
+       />
+       
       </View>
+      </View>
+      
+     </View>
+        
 
 
 

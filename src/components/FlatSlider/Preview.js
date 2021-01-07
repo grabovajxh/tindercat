@@ -87,7 +87,9 @@ export default (Preview = ({
         onPress={() => onPress(item)}>
         <View style={[styles.imageContainer, styles.shadow]}>
           <Image
-            style={[styles.videoPreview, active ? {} : {height: 120}]}
+            style={[styles.videoPreview, active ? { width: 100,
+              height: 100,
+              borderRadius:50 } : {}]}
             source={{uri: item[imageKey]}}
           />
         </View>
@@ -98,17 +100,17 @@ export default (Preview = ({
   
   const styles = StyleSheet.create({
     videoContainer: {
-      width: 275,
-      paddingVertical: 28,
+      width: 95,
+      paddingVertical: 38,
       justifyContent: 'center',
       alignItems: 'center',
-      marginRight: 20,
+      marginRight: 10,
     },
     videoPreview: {
-      width: 275,
-      height: 155,
-      borderRadius: 8,
-      resizeMode: 'cover',
+      width: 80,
+      height: 80,
+      borderRadius:40 ,
+      
     },
     desc: {
       fontSize: 14,
