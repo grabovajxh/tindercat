@@ -15,8 +15,12 @@ const styles = StyleSheet.create({
     left: 10,
   },
   image: {
-    width: 34,
-    height: 34,
+    flexDirection:"column",
+    width: 54,
+    height: 54,
+    backgroundColor:'#db872f',
+    borderRadius:40,
+    marginTop:'5%'
   },
 });
 
