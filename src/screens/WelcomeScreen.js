@@ -1,9 +1,13 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, Alert, ScrollView, TextInput } from 'react-native';
-import Background from '../components/Background';
+import { TouchableOpacity, StyleSheet, Text, View, Alert, ScrollView, TextInput,Button,Touch,ImageBackground ,Image} from 'react-native';
+
+import BackgroundWelcome from '../components/BackgroundWelcome';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
-import Button from '../components/Button';
+import AwesomeButton from "react-native-really-awesome-button";
+
+
+
 // import TextInput from '../components/TextInput';
 import BackButton from '../components/BackButton';
 import { theme } from '../core/theme';
@@ -28,54 +32,68 @@ export default class WelcomeScreen extends React.Component {
     render() {
 
         return (
-            <Background>
+          <BackgroundWelcome>
+             <Logo/>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')} style={welcomeStyle.appButtonContainer}>
+    <Text style={welcomeStyle.appButtonText}>Sign In</Text>
+  </TouchableOpacity>
 
-                <Logo />
-
-
-                <Button mode="contained"onPress={() => this.props.navigation.navigate('LoginScreen')}>
-                    Sign In
-      </Button>
-
-                <Button mode="contained" onPress={() => this.props.navigation.navigate('RegisterScreen')}>
-                    Sign Up
-      </Button>
-
-            </Background>
+  <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')} style={welcomeStyle.appButtonContainer2}>
+    <Text style={welcomeStyle.appButtonText2}>Sign Up</Text>
+  </TouchableOpacity>
+            </BackgroundWelcome>
+          
         )
     };
 };
+const welcomeStyle = StyleSheet.create({
+    // ...
+    appButtonContainer: {
+      elevation: 8,
+      backgroundColor: "#fff",
+      borderRadius: 15,
+      paddingVertical: 20,
+      marginTop:5,
+      paddingHorizontal: 10,
+      width: '85%',
 
-const styles = StyleSheet.create({
-    forgotPassword: {
-        width: '50%',
-        height: 20,
-        fontSize: 20,
-        alignItems: 'center',
-        borderRadius: 40,
-        marginTop: 10,
-        marginBottom: 20,
 
-        color: 'black',
+ 
     },
-    row: {
-        justifyContent: 'center',
-        marginTop: 90,
-
+    appButtonContainer2: {
+      elevation: 8,
+      backgroundColor: "#efefef",
+      borderRadius: 15,
+      paddingVertical: 20,
+      marginTop:20,
+      paddingHorizontal: 10,
+      width: '85%',
+      borderWidth:1,
+      borderColor:'#fff'
     },
-    label: {
-        color: 'black',
-        marginTop: 5,
-
+    appButtonText: {
+      fontSize: 24,
+      color: "#db872f",
+      fontWeight: "bold",
+      alignSelf: "center",
+      
     },
-    link: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        textAlign: 'center',
-        color: '#DA8730',
-        marginTop: 15,
-
-    },
-});
-
-//export default memo(LoginScreen);
+    appButtonText2: {
+        fontSize: 22,
+        color: "#3f3f3c",
+        fontWeight: "bold",
+        alignSelf: "center",
+        borderColor:'#ddd',
+        
+      },
+      backgroundCover:{
+        flex: 1,
+        width: '100%',
+      
+      },
+      container: {
+        flex: 1,
+        
+        width:'100%'
+   },
+  });

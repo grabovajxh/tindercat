@@ -19,20 +19,28 @@ const Button = ({ mode, style, children, ...props }) => (
 );
 
 const styles = StyleSheet.create({
+  label: {
+    color: theme.colors.secondary,
+  },
   button: {
-    width: '35%',
-    height: 50,
-    marginVertical: 5,
-    borderRadius:30,
-    justifyContent: 'center',
-    backgroundColor:'#ddd',
+    marginTop: 24,
+    backgroundColor:"#fff",
+    borderColor:'#000',
+    borderRadius:20,
+    width:"35%",
+    justifyContent:"center",
+    textAlign:'center',
+    marginBottom:40,
     
     
   },
-  text: {
-    
-    fontSize: 15,
-    lineHeight: 26,
+  row: {
+    flexDirection: 'row',
+    marginTop: 4,
+  },
+  link: {
+    fontWeight: 'bold',
+    color: theme.colors.primary,
   },
 });
 

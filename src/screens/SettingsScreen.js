@@ -95,8 +95,8 @@ FlatListItemSeparator = () => {
     return ( 
       <View>
        
-     <View>
-      <Image source={{uri: 'http://i.imgur.com/IGlBYaC.jpg'}} style={s.container}>  
+     <View style={{marginTop:20,}}>
+      <Image source={require('../assets/banner.jpg')}style={s.container}>  
       </Image>
   
    <View style={{
