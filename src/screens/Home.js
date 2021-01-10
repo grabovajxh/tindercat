@@ -6,17 +6,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as firebase from 'firebase';
- import Preview from '../components/FlatSlider/Preview';
- import PreviewList from '../components/FlatSlider/PreviewList';
- import FlatListSlider from '../components/FlatSlider/FlatListSlider';
+import Preview from '../components/FlatSlider/Preview';
+import PreviewList from '../components/FlatSlider/PreviewList';
+import FlatListSlider from '../components/FlatSlider/FlatListSlider';
 import SwitchSelector from "react-native-switch-selector";
+import { Ionicons , AntDesign} from '@expo/vector-icons';
+import Modal from "react-native-modal";
+import BackButton from '../components/BackButton';
+import { Rating } from 'react-native-ratings';
 
 import 'firebase/firestore';
 
 // const SCREEN_HEIGHT = Dimensions.get('window').height;
 // const SCREEN_WIDTH = Dimensions.get('window').width;
 // import Icon from 'react-native-vector-icons/Ionicons';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // import * as firebase from 'firebase';
 // import 'firebase/firestore';
@@ -54,6 +58,7 @@ import 'firebase/firestore';
 // };
 import FirstPage from './LoginScreen';
 import SecondPage from './RegisterScreen';
+import { Alert } from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -357,11 +362,12 @@ export default class Home extends React.Component {
       images: [],
       downloadURLs: [],
       users: "",
+      isOpen: false,
 
       collectionTinder: [],
       modalVisible: false,
       data: [
-        
+
         {
           image:
             'https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/2299060/2018/7/30/7584b116-2a2c-4fb1-881c-af58cc484b181532944603854-Tokyo-Talkies-Women-Black-Printed-Maxi-Dress-4791532944603727-1.jpg',
@@ -370,7 +376,7 @@ export default class Home extends React.Component {
         },
         {
           image:
-          'https://cdn-images.farfetch-contents.com/14/55/48/85/14554885_22201159_600.jpg',
+            'https://cdn-images.farfetch-contents.com/14/55/48/85/14554885_22201159_600.jpg',
           desc:
             'Coat',
         },
@@ -382,13 +388,9 @@ export default class Home extends React.Component {
         },
         {
           image:
-          'https://media.missguided.com/i/missguided/Y9206187_01',
+            'https://media.missguided.com/i/missguided/Y9206187_01',
           desc:
             'Hoodies',
-        },{
-          image:
-          'https://hypebeast.com/image/2020/02/nike-top-10-best-selling-sneakers-list-2019-01.jpg',
-          desc: 'Shoes',
         },
         {
           image:
@@ -398,7 +400,7 @@ export default class Home extends React.Component {
         },
         {
           image:
-          'https://cdn-images.farfetch-contents.com/14/55/48/85/14554885_22201159_600.jpg',
+            'https://cdn-images.farfetch-contents.com/14/55/48/85/14554885_22201159_600.jpg',
           desc:
             'Coat',
         },
@@ -410,30 +412,36 @@ export default class Home extends React.Component {
         },
         {
           image:
-          'https://media.missguided.com/i/missguided/Y9206187_01',
+            'https://media.missguided.com/i/missguided/Y9206187_01',
           desc:
             'Hoodies',
-        },
+        }
+
       ],
       // url:""
     };
   }
-  componentDidMount() {
+  details = () => {
+    this.setState({ isOpen: !this.state.isOpen })
 
-    var name = "";
-    firebase.auth().onAuthStateChanged((user) => {
-      console.log(user.email);
-      name = user.email.substr(0, user.email.indexOf('@'));
-      this.setState({ users: name });
-
-
-    });
   }
+  // componentDidMount() {
+
+  //   var name = "";
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     console.log(user.email);
+  //     name = user.email.substr(0, user.email.indexOf('@'));
+  //     this.setState({ users: name });
+
+
+  //   });
+  // }
 
   render() {
     const styles = StyleSheet.create({
       separator: {
         height: 8,
+
       },
       contentStyle: {
         paddingHorizontal: 12,
@@ -443,8 +451,8 @@ export default class Home extends React.Component {
       container: {
         flex: 1,
       },
-    
-      
+
+
     });
     const screenWidth = Math.round(Dimensions.get('window').width);
     const stories = [
@@ -544,23 +552,24 @@ export default class Home extends React.Component {
           </View>
         </View>
         <View >
-        <SafeAreaView>
+          <SafeAreaView>
             <ScrollView>
 
               <FlatListSlider
                 data={this.state.data}
                 width={80}
-               timer={4000}
-               loop={true}
+                loop={true}
                 component={<Preview />}
                 onPress={item => alert(JSON.stringify(item))}
-                indicatorActiveWidth={10}
+                indicatorActiveWidth={7}
+                autoscroll={true}
+                indicatorActiveColor='#DA8730'
                 contentContainerStyle={styles.contentStyle}
               />
             </ScrollView>
-            </SafeAreaView>
+          </SafeAreaView>
         </View>
-       
+
         {/* <View style={styles.container}>
 				<Bubbles />
 
@@ -572,7 +581,7 @@ export default class Home extends React.Component {
 					<Stories />
 				</View>
 			</View> */}
-    {/* {stories.map((item) => {
+        {/* {stories.map((item) => {
             return (
               <View key={item.name} style={{ marginLeft: 12 }}>
                 <IGStoryCircle
@@ -584,53 +593,261 @@ export default class Home extends React.Component {
               </View>
             );
           })} */}
-        
-          
-        <View  style={{flexDirection:'column',alignSelf:'center',justifyContent:'center',width:'70%',marginTop:'5%'}}>
-        <SwitchSelector
-          initial={0}
-          onPress={value => this.setState({ gender: value })}
-          textColor='#000' //'#7a44cf'
-          selectedColor='#fff'
-          bold='true'
-          height={60}
-          buttonColor='#DA8730'
-          borderColor='#fff'
-          hasPadding
-          options={[
-            { label: "WOMEN", value: "f" }, //images.feminino = require('./path_to/assets/img/feminino.png')
-            { label: "MEN", value: "m" } //images.masculino = require('./path_to/assets/img/masculino.png')
-          ]}
-        />
-      </View>
-     
+
+
+        <View style={{ flexDirection: 'column', alignSelf: 'center', justifyContent: 'center', width: '70%', marginTop: '5%' }}>
+          <SwitchSelector
+            initial={0}
+            onPress={value => this.setState({ gender: value })}
+            textColor='#000' //'#7a44cf'
+            selectedColor='#fff'
+            bold={true}
+            height={60}
+            buttonColor='#DA8730'
+            borderColor='#fff'
+            hasPadding
+            options={[
+              { label: "WOMEN", value: "f" }, //images.feminino = require('./path_to/assets/img/feminino.png')
+              { label: "MEN", value: "m" } //images.masculino = require('./path_to/assets/img/masculino.png')
+            ]}
+          />
+        </View>
+
+
+        <View style={{
+
+          flex: 1
+
+        }}>
+
+          <View style={{
+
+            position: 'absolute',
+            paddingTop: '5%',
+            paddingLeft: '2%',
+            paddingRight: 0,
+            paddingBottom: 0
+
+          }}>
+            <ScrollView horizontal={true}>
+              <View style={{ flexDirection: 'row', flex: 1 }}>
+                <View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1,
+                      paddingRight: '5%'
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <View stuyle={{ flex: 1 }}>
+                    <Text>54£</Text>
+                    <Text>Shoes 1 </Text>
+                  </View>
+                </View>
+                <View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>54£</Text>
+                  <Text>Shoes bla bla </Text>
+                </View><View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1,
+                      paddingLeft: '20%'
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>54£</Text>
+                  <Text>Shoes bla bla </Text>
+                </View><View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>54£</Text>
+                  <Text>Shoes bla bla </Text>
+                </View><View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>54£</Text>
+                  <Text>Shoes bla bla </Text>
+                </View>
+                <View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>59£</Text>
+                  <Text>Shoes bla x </Text>
+                </View>
+                <View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>59£</Text>
+                  <Text>Shoes bla bla </Text>
+                </View>
+                <View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>59£</Text>
+                  <Text>Shoes bla bla </Text>
+                </View>
+                <View style={{ flexDirection: 'column', paddingRight: '3%' }}>
+                  <Image
+                    source={require('../assets/SHOE2.png')} style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 1
+                    }}
+                  />
+                  <View style={{
+
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                    <Ionicons name="ios-add-circle" size={24} color="#DA8730" onPress={this.details} />
+                  </View>
+                  <Text>59£</Text>
+                  <Text>Shoes bla bla </Text>
+                </View>
+              </View>
+
+            </ScrollView>
+          </View>
+
+        </View>
+
+        <Modal
+          animationIn='slideInUp'
+          hasBackdrop={true}
+          backdropColor='#fff'
+          animationOut='swing'
+          backdropOpacity={1}
+          isVisible={this.state.isOpen}
+        >
        
-      <View>
-      <View style={{ flex: 1, flexDirection: 'row', paddingTop: '5%', paddingLeft: '5%'}}>
-          
-               <Image
-               source={require('../assets/SHOE2.png')} style={{
-                height: 200,
-                width: 200,
-                borderRadius: 1
+          <View style={{}}>
+            <Image
+              source={require('../assets/SHOE2.png')} style={{
+                height: '50%',
+                width: '100%',
+                borderRadius: 1,
+                marginBottom: '5%'
               }}
             />
+            <View style={{ flexDirection: 'row', }}>
+              <Text style={{ alignSelf: 'flex-start', flex: 1, fontSize: 22, }}>REEBOOK RED RUN </Text>
+              <Text style={{ alignSelf: 'flex-end', fontSize: 22, color: 'red',marginRight:'5%' }}> 75 £</Text>
+            </View>
+            <Rating
+              type='custom'
+              ratingCount={5}
+              imageSize={20}
+              ratingColor='#DA8730'
+              onFinishRating={this.ratingCompleted}
+              style={{alignSelf:'flex-start'}}
+            />
+            <View style={{flex:1,marginTop:'5%'}}>
+              <Text >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua.
+        </Text>
+            </View>
+            <TouchableOpacity
+              style={{ alignSelf: 'center', marginBottom: 10, }}
+              onPress={this.details}>
+              <AntDesign name="closecircle" size={34} color="#ff0000" onPress={this.details} />
+            </TouchableOpacity>
           </View>
-          <View style={{ flex: 1, flexDirection: 'row',  paddingRight: '5%' }}>
-          
-          <Image
-          source={require('../assets/SHOE2.png')} style={{
-           height: 200,
-           width: 200,
-           borderRadius: 1
-         }}
-       />
-       
+        </Modal>
       </View>
-      </View>
-      
-     </View>
-        
+
 
 
 

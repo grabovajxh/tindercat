@@ -152,19 +152,24 @@ export default class FlatListSlider extends Component {
     if (this.props.animation) {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeIn);
     }
-     if (this.state.data.length>this.state.index+1){
-        this.setState({index: this.state.index + 1});
-        this.slider.current.scrollToIndex({
-          index: this.state.index,
-          animated: true,
-        });
-     }
-      else {
-        this.slider.current.scrollToIndex({
-            index: 0,
-            animated: true,
-          });
-      }
+    //  if (this.state.data.length>this.state.index+1){
+    //     this.setState({index: this.state.index + 1});
+    //     this.slider.current.scrollToIndex({
+    //       index: this.state.index,
+    //       animated: true,
+    //     });
+    //  }
+    //   else {
+    //     this.slider.current.scrollToIndex({
+    //         index: 0,
+    //         animated: true,
+    //       });
+    //   }this.setState({index: this.state.index + 1});
+    this.slider.current.scrollToIndex({
+      index: this.state.index,
+      animated: true,
+    });
+
     
   };
 
