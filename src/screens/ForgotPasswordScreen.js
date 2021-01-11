@@ -9,6 +9,7 @@ import TextInput from '../components/TextInput';
 import { theme } from '../core/theme';
 import Button from '../components/Button';
 import LoginScreen from './LoginScreen';
+import { View } from 'react-native';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: '', error: '' });
@@ -27,11 +28,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
-    <Background>
-     
 
-      
-<BackButton goBack={() =>navigation.navigate('LoginScreen')}/>
+    <Background>
+         
+    <BackButton style={styles.backButton} goBack={() =>navigation.navigate('LoginScreen')}/>
 
       <Text style={styles.reset}>
           RESET PASSWORD 
@@ -86,7 +86,9 @@ const styles = StyleSheet.create({
   textInput: {
     borderBottomColor: '#b2b2b2',
     borderBottomWidth: 1,
-
+  },
+  backButton:{
+    flexDirection:'row'
   }
 });
 
