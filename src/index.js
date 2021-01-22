@@ -12,8 +12,9 @@ import TinderLike from  './screens/TinderLike';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import AnalyticsScreen  from './screens/AnalyticsSreen';
 import SettingsScreen from './screens/SettingsScreen';
+import Setting1 from './screens/Setting1'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons , FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
+import { Ionicons , FontAwesome, MaterialCommunityIcons,MaterialIcons,Fontisto} from '@expo/vector-icons';
 import Favorite from './screens/Favorite';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
@@ -44,8 +45,8 @@ const HomeRoute = createSwitchNavigator(
         navigation.navigate('Home');
       },
      
-      tabBarLabel: <Text >Home</Text>,
-      tabBarIcon: props => <FontAwesome name="home" size={24} color="#DA8730" />,
+      tabBarLabel: <Text >Category</Text>,
+      tabBarIcon: props => <FontAwesome name="shopping-cart" size={24} color="#DA8730" />,
     },
   }
 );
@@ -69,14 +70,14 @@ const analyticsRoute = createSwitchNavigator(
 
 const profileRoute = createSwitchNavigator(
   {
-   SettingsScreen,
+   Setting1,
     
   },
   {
-    initialRouteName: 'SettingsScreen',
+    initialRouteName: 'Setting1',
     navigationOptions: {
       tabBarOnPress: ({ navigation }) => {
-        navigation.navigate('SettingsScreen');
+        navigation.navigate('Setting1');
       },
      
       tabBarLabel: <Text >Profile</Text>,
@@ -110,9 +111,11 @@ const FavoriteRoute = createSwitchNavigator(
   {
     initialRouteName: 'Favorite',
     navigationOptions: {
-     
-      tabBarLabel: <Text >Favorite</Text>,
-      tabBarIcon: props => <FontAwesome name="heart" size={24} color="#DA8730" />,
+      tabBarOnPress: ({ navigation }) => {
+        navigation.navigate('Favorite');
+      },
+      tabBarLabel: <Text >Saved</Text>,
+      tabBarIcon: props => <Fontisto name="favorite" size={24} color="#DA8730" />,
       
     },
   }
@@ -134,14 +137,14 @@ const FavoriteRoute = createSwitchNavigator(
  )
 const BottomRoutes = createMaterialBottomTabNavigator(
   {
-    HomeRoute,
-   tinderRoute,
     FavoriteRoute,
+    HomeRoute,
+    tinderRoute,
     analyticsRoute,
     profileRoute,
   },
   {
-    initialRouteName: 'HomeRoute',
+    initialRouteName: 'FavoriteRoute',
     activeColor: '#DA8730',
     inactiveColor: 'rgba(255,255,255,0.5)',
     labeled: true,

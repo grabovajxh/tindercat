@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Button, Text
 import IconButton from '../components/IconButton/IconButton'
 import * as firebase from 'firebase';
 import { SearchBar } from 'react-native-elements';
-
-
+import SwitchSelector from "react-native-switch-selector";
+import { Ionicons , FontAwesome, MaterialCommunityIcons,MaterialIcons,Fontisto} from '@expo/vector-icons';
 const dbConnection = firebase.firestore().collection("productsTinder");
  class Item extends Component{
 
@@ -196,25 +196,57 @@ export default class Favorite extends React.Component {
   render() {
     return (
       <View style={styles.container}  >
-        <View style={{ flexDirection: 'row' }}>
+        <View style={styles.searchSection}>
+    <FontAwesome style={styles.searchIcon} name="search" size={20} color="#000"/>
+    <TextInput
+        style={styles.input}
+        placeholder="Search"
+        onChangeText={value => this.searchContacts(value)}
+        underlineColorAndroid="transparent"
+    />
+</View>
+        {/* <View style={{  
+    flexDirection: 'row', 
+ }}>
+        <FontAwesome name="search" style={{paddingLeft:'10%'}} size={24} color="black" />
           <TextInput
             placeholder="Search"
             placeholderTextColor="#ffffff"
             style={{
               backgroundColor: '#e6e6e6',
-              
               marginLeft: '10%',
-              justifyContent: 'center',
-              alignItems: 'center',
+              marginRight: '10%',
+              flex:1,
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
               textAlign: "center",
               fontSize: 20,
               padding: '1%',
               color: 'white',
-              width: '40%',
+              width: '100%',
+              borderRadius:20
             }}
             onChangeText={value => this.searchContacts(value)}
           />
-          <Switch
+           {/* <View style={{  alignSelf: 'flex-end', justifyContent: 'flex-end', width: '30%',  marginTop: '5%' , marginLeft:'14%' }}>
+          <SwitchSelector
+            initial={0}
+            onPress={value => this.setState({ gender: value })}
+            textColor='#000' //'#7a44cf'
+            selectedColor='#fff'
+            bold={true}
+            height={60}
+            buttonColor='#DA8730'
+            borderColor='#fff'
+            hasPadding
+            options={[
+              { label: "<", value: "f" }, //images.feminino = require('./path_to/assets/img/feminino.png')
+              { label: ">", value: "m" } //images.masculino = require('./path_to/assets/img/masculino.png')
+            ]}
+          />
+        </View>
+         </View> */}
+          {/* <Switch
             trackColor={{ false: '#767577', true: '#39ac73' }}
             thumbColor={this.state.isEnabled ? '#f4f3f4' : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
@@ -225,8 +257,8 @@ export default class Favorite extends React.Component {
               marginTop: '2%',
               
             }}
-          />
-        </View>
+          /> */}
+       
 
         <FlatList
 
@@ -269,9 +301,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7F7F7',
     marginTop: 60
   },
+  searchSection: {
+    width:'60%',
+    flexDirection: 'row',
+   
+    backgroundColor: '#fff',
+    marginLeft:'10%',
+    marginRight:'10%',
+  borderRadius:20,
+    backgroundColor: '#e6e6e6',
+},
+searchIcon: {
+    paddingLeft: 30,
+    paddingTop:10
+},
+input: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    backgroundColor: '#e6e6e6',
+    color: '#424242',
+},
   listItem: {
-    margin: 10,
-    padding: 10,
+    margin: 5,
+    padding: 5,
     backgroundColor: "#FFF",
     width: "80%",
     flex: 1,

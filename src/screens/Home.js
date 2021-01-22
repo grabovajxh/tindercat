@@ -7,7 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as firebase from 'firebase';
 import Preview from '../components/FlatSlider/Preview';
-import PreviewList from '../components/FlatSlider/PreviewList';
+
+
 import FlatListSlider from '../components/FlatSlider/FlatListSlider';
 import SwitchSelector from "react-native-switch-selector";
 import { Ionicons , AntDesign} from '@expo/vector-icons';
@@ -613,7 +614,18 @@ export default class Home extends React.Component {
           />
         </View>
 
-
+        <ScrollView
+        bounces={true}
+        bouncesZoom={true}
+        maximumZoomScale={2.0}
+        minimumZoomScale={0.5}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
+        style={styles.container}
+      >
+        
+      </ScrollView>
         <View style={{
 
           flex: 1

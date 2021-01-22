@@ -456,7 +456,7 @@ onSwipeAction= (swipeProduct,action) => {
         },
         right: {
           title: 'LIKE',
-          element: <OverlayLabel label="LIKE" color="#4CCC93" />,
+          element: <OverlayLabel label="LIKE" color="#E5566D" />,
           style: {
             wrapper: styles.overlayWrapper,
             // wrapper: {

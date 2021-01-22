@@ -34,6 +34,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-animated-modal": "^1.1.0",
     "react-native-deck-swiper": "^2.0.5",
+    "react-native-directed-scrollview": "^2.0.0",
     "react-native-elements": "^2.3.2",
     "react-native-flatlist-slider": "^1.0.5",
     "react-native-gesture-handler": "~1.6.0",
