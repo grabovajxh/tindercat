@@ -7,7 +7,7 @@ import {
 
 const BackgroundSignIn = ({ children }) => (
   <ImageBackground
-    source={require('../assets/signinbackground.png')}
+    source={require('../assets/signinbackground1.jpg')}
 
     style={styles.background}
   >

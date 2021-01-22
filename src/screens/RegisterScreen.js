@@ -58,16 +58,14 @@ export default class RegisterScreen extends React.Component {
   render() {
     return (
       <Background>
-
-
-<View>
-      <Text style={styles.register}>
-          CREATE ACCOUNT!
+        <View>
+          <Text style={styles.register}>
+            CREATE ACCOUNT!
         </Text>
-      </View>
+        </View>
 
 
-        <TextInput
+        <TextInput style={styles.textInput}
           value={this.state.email}
           onChangeText={(text) => { this.setState({ email: text }) }}
           placeholder="Email"
@@ -81,7 +79,7 @@ export default class RegisterScreen extends React.Component {
           autoCorrect={false}
         />
 
-        <TextInput
+        <TextInput style={styles.textInput}
           value={this.state.password}
           onChangeText={(text) => { this.setState({ password: text }) }}
           placeholder="Password"
@@ -89,7 +87,7 @@ export default class RegisterScreen extends React.Component {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <TextInput
+        <TextInput style={styles.textInput}
           value={this.state.passwordConfirm}
           onChangeText={(text) => { this.setState({ passwordConfirm: text }) }}
           placeholder="Confirm Password"
@@ -118,8 +116,8 @@ export default class RegisterScreen extends React.Component {
 const styles = StyleSheet.create({
   label: {
     color: '#000',
-    fontSize:20,
-    paddingTop:20
+    fontSize: 20,
+    paddingTop: 21
   },
   button: {
     marginTop: 24,
@@ -131,15 +129,21 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: 'bold',
     color: '#db872f',
-    fontSize:20,
-    paddingTop:20
+    fontSize: 20,
+    paddingTop: 20,
+    textDecorationLine: 'underline',
+
   },
-  register:{
+  register: {
     fontSize: 40,
     textAlign: 'center',
     margin: 10,
-    color:'#db872f'
-    
+    color: '#db872f'
+  },
+  textInput: {
+    borderBottomColor: '#b2b2b2',
+    borderBottomWidth: 1,
+
   }
 });
 

@@ -7,7 +7,7 @@ import {
 
 const BackgroundWelcome = ({ children }) => (
   <ImageBackground
-    source={require('../assets/tabletbackground.png')}
+    source={require('../assets/tabletbackground1.jpg')}
 
     style={styles.background}
   >
@@ -15,7 +15,7 @@ const BackgroundWelcome = ({ children }) => (
       {children}
     </KeyboardAvoidingView>
   </ImageBackground>
-);
+); 
 
 const styles = StyleSheet.create({
   background: {
