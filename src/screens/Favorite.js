@@ -6,45 +6,54 @@ import * as firebase from 'firebase';
 import { SearchBar } from 'react-native-elements';
 import SwitchSelector from "react-native-switch-selector";
 import { Ionicons , FontAwesome, MaterialCommunityIcons,MaterialIcons,Fontisto} from '@expo/vector-icons';
-const dbConnection = firebase.firestore().collection("productsTinder");
- class Item extends Component{
+
+//  class Item extends Component{
 
 
-  render() {
-    const {item} = this.props;
-    const {handleClicks} = this.props;
-    const handleClickss = async (key) => {
-      await dbConnection.doc(key).delete().then(function () {
-        console.log("Document successfully deleted!");
-      }).catch(function (error) {
-        console.error("Error removing document: ", error);
-      });
-    }
+//   render() {
+//     const {item} = this.props;
+//     const {handleClicks} = this.props;
+//     const handleClickss = async (key) => {
+//       await dbConnection.doc(key).delete().then(function () {
+//         console.log("Document successfully deleted!");
+//       }).catch(function (error) {
+//         console.error("Error removing document: ", error);
+//       });
+//     }
      
-    return (
-      <View style={styles.listItem} >
-        <Image source={{ uri: item.urlImage }} style={{ width: 60, height: 60, borderRadius: 30 }} />
-        <View style={{ alignItems: "center", flex: 1 }} >
-          <Text style={{ fontWeight: "bold" }}>{item.productionName}</Text>
-          <Text>{item.price}$</Text>
-          <Text style={{ color: "#DA8730" }}>{item.action}</Text>
-        </View>
+//     return (
+//       <View style={styles.listItem} >
+//         <Image source={{ uri: item.urlImage }} style={{ width: 50, height: 50, borderRadius: 25 }} />
+//         <View style={{ alignItems: "flex-start", flex: 1 }} >
+//           <Text style={{ paddingLeft:'15%',paddingTop:'8%',fontWeight: "bold" ,alignSelf:'center'}}>{item.productionName}</Text>
+      
+       
+//         </View>
+//         <View style={{ alignItems: "center", flex: 1 }} >
+       
+//           <Text style={{ paddingLeft:'15%',paddingTop:'7%',alignSelf:'center'}}>{item.price}$</Text>
+       
+//         </View>
+//         <View style={{ alignItems: "flex-end", flex: 1 }} >
+      
+//           <Text style={{ color: "#DA8730",paddingLeft:'15%',paddingTop:'7%',alignSelf:'center' }}>{item.action}</Text>
+//         </View>
   
-        <TouchableOpacity>
-          <IconButton
-            name="delete"
-            color="red"
-            size={20}
-            onPress={()=>handleClickss(item.key)}
-          />
+//         <TouchableOpacity>
+//           <IconButton
+//             name="delete"
+//             color="red"
+//             size={20}
+//             onPress={()=>{handleClickss(item.key);this._onRemove(item);}}
+//           />
   
-        </TouchableOpacity>
-      </View>
-    );
-  }
+//         </TouchableOpacity>
+//       </View>
+//     );
+//   }
   
- }
-
+//  }
+const dbConnection = firebase.firestore().collection("productsTinder");
 export default class Favorite extends React.Component {
   constructor() {
     super();
@@ -68,8 +77,13 @@ export default class Favorite extends React.Component {
      console.error("Error removing document: ", error);
    });
   }
-  toggleSwitch = () => {
-    this.setState({ isEnabled: !this.state.isEnabled })
+  _onRemove = (key) => { 
+    const filteredData = this.state.collectionTinder.filter(item => item.key !== key);
+    this.setState({ collectionTinder: filteredData });
+    
+ }
+  toggleSwitch = (value) => {
+    this.setState({ isEnabled: value})
     const filteredContacts = this.state.searchCollectionTinder
       .filter(contact => {
         let contactLowercase = (
@@ -105,10 +119,10 @@ export default class Favorite extends React.Component {
     return header_View;
 
   };
-  async    componentDidMount() {
-    await this.getCollections();
+componentDidMount(){
+  this.getCollections();
+}
 
-  }
   onSearchInputChange = (text) => {
     const filterByValue = dbConnection.where("action", "==", "Left");
     this.setState({ collectionTinder: filterByValue })
@@ -159,7 +173,20 @@ export default class Favorite extends React.Component {
     //     console.log("Error getting documents: ", error);
     // });
   }
+  updateSearch = (search) => {
+    this.setState({ search });
+    const filteredContacts = this.state.searchCollectionTinder
+      .filter(contact => {
+        let contactLowercase = (
+          contact.productionName
+        ).toLowerCase();
 
+        let searchTermLowercase = search.toLowerCase();
+
+        return contactLowercase.indexOf(searchTermLowercase) > -1;
+      });
+    this.setState({ collectionTinder: filteredContacts });
+  };
   searchContacts = value => {
     const filteredContacts = this.state.searchCollectionTinder
       .filter(contact => {
@@ -194,17 +221,46 @@ export default class Favorite extends React.Component {
       </View>
   }
   render() {
+   
     return (
       <View style={styles.container}  >
-        <View style={styles.searchSection}>
-    <FontAwesome style={styles.searchIcon} name="search" size={20} color="#000"/>
+     
+        <View style={{ flexDirection: 'column', alignSelf: 'center', justifyContent: 'center', width: '70%', marginTop: '5%' }}>
+          <SwitchSelector
+            initial={0}
+       
+            onPress={ value => this.toggleSwitch(value)}
+            textColor='#000' //'#7a44cf'
+            selectedColor='#fff'
+            bold={true}
+            height={40}
+            buttonColor='#DA8730'
+            borderColor='#fff'
+            hasPadding
+            options={[
+              { label: "Left", value: false }, //images.feminino = require('./path_to/assets/img/feminino.png')
+              { label: "Right", value: true } //images.masculino = require('./path_to/assets/img/masculino.png')
+            ]}
+          />
+        </View>
+        
+        <SearchBar
+        placeholder="Type Here..."
+        onChangeText={this.updateSearch}
+        lightTheme={true}
+        round={true}
+        value={this.state.search}
+      />
+
+        {/* <View style={styles.searchSection}>
+    <FontAwesome style={styles.searchIcon} name="search" size={15} color="#000"/>
     <TextInput
         style={styles.input}
         placeholder="Search"
         onChangeText={value => this.searchContacts(value)}
         underlineColorAndroid="transparent"
     />
-</View>
+</View> */}
         {/* <View style={{  
     flexDirection: 'row', 
  }}>
@@ -266,28 +322,57 @@ export default class Favorite extends React.Component {
           data={this.state.collectionTinder}
           renderItem={({ item }) =>// if(this.state.collectionTinder.length>0) {return(<Item item={item}/> ); }  else{return()}  }}
           {
-            if (this.state.collectionTinder.length > 0) {
-              return (
+            return (
+              <View style={styles.listItem} >
+                <Image source={{ uri: item.urlImage }} style={{ width: 50, height: 50, borderRadius: 25 }} />
+                <View style={{ alignItems: "flex-start", flex: 1 }} >
+                  <Text style={{ paddingLeft:'15%',paddingTop:'8%',fontWeight: "bold" ,alignSelf:'center'}}>{item.productionName}</Text>
+              
+               
+                </View>
+                <View style={{ alignItems: "center", flex: 1 }} >
+               
+                  <Text style={{ paddingLeft:'15%',paddingTop:'7%',alignSelf:'center'}}>{item.price}$</Text>
+               
+                </View>
+                <View style={{ alignItems: "flex-end", flex: 1 }} >
+              
+                  <Text style={{ color: "#DA8730",paddingLeft:'15%',paddingTop:'7%',alignSelf:'center' }}>{item.action}</Text>
+                </View>
+          
+                <TouchableOpacity>
+                  <IconButton
+                    name="delete"
+                    color="red"
+                    size={20}
+                    onPress={()=>{this.handleClicks(item.key);this._onRemove(item.key);}}
+                  />
+          
+                </TouchableOpacity>
+              </View>
+            );
+            // if (this.state.collectionTinder.length > 0) {
+            //   return (
                 
-               <Item item={item} />
+            //    <Item item={item} />
 
-              );
-            } else {
-              return (
-                console.log("nodata")// OR WHATEVER YOU WANT HERE
-              );
-            }
+            //   );
+            // } else {
+            //   return (
+            //     console.log("nodata")// OR WHATEVER YOU WANT HERE
+            //   );
+            // }
           }}
           keyExtractor={(item, index) => index.toString()}
           removeClippedSubviews={true} // Unmount components when outside of window 
-          initialNumToRender={2} // Reduce initial render amount
-          maxToRenderPerBatch={1} // Reduce number in each render batch
-          updateCellsBatchingPeriod={100} // Increase time between renders
-          windowSize={7} // Reduce the window size
+          initialNumToRender={50} // Reduce initial render amount
+          maxToRenderPerBatch={50} // Reduce number in each render batch
+          updateCellsBatchingPeriod={1} // Increase time between renders
+          windowSize={21} // Reduce the window size
           refreshing={this.state.refreshing}
           onRefresh={() => {
             this.setState({ refreshing: true });
-            this.collectionTinder();
+            this.getCollections();
           }}
         />
       </View>
@@ -299,39 +384,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F7F7F7',
-    marginTop: 60
+      marginTop:'10%'
+ 
   },
+
   searchSection: {
-    width:'60%',
-    flexDirection: 'row',
-   
+    width:'95%',
+    flexDirection: 'row',  
     backgroundColor: '#fff',
-    marginLeft:'10%',
+    marginLeft:'2.5%',
     marginRight:'10%',
-  borderRadius:20,
+    marginBottom:'5%',
+    paddingRight:'5%',
+     borderRadius:60,
     backgroundColor: '#e6e6e6',
 },
 searchIcon: {
-    paddingLeft: 30,
-    paddingTop:10
+    padding:'1%'
 },
 input: {
-    flex: 1,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    paddingLeft: 10,
+    
+    paddingTop: '1%',
+    paddingRight: '1%',
+    paddingBottom: '1%',
+    paddingLeft:'1%',
     backgroundColor: '#e6e6e6',
     color: '#424242',
 },
   listItem: {
-    margin: 5,
-    padding: 5,
+    margin: 2,
+
     backgroundColor: "#FFF",
-    width: "80%",
+    width: "95%",
     flex: 1,
     alignSelf: "center",
     flexDirection: "row",
-    borderRadius: 5
+    borderRadius: 5,
+   
   }
 });

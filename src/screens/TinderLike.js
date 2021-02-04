@@ -230,60 +230,61 @@ import { Alert } from 'react-native'
 
 const tinderCards = [
   {
-    productionName: 'Tech',
+    productionName: 'Sneakers',
       description:'',
     action:'', 
     price: 22,
-    urlImage: "https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F1.jpg?alt=media&token=9b93411f-b658-4b68-9258-a426f2bc3250",
+    urlImage: "https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F1.png?alt=media&token=ff2625d6-17f4-4e79-9d89-4eeeff8fdc31",
     id: 1,
+  },
+  {
+    productionName: 'Sneakers',
+      description:'',
+    action:'', 
+    price: 22,
+    urlImage: "https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F2.png?alt=media&token=500e7a42-ce0d-4b25-8218-a2e5cae36788",
+    id: 2,
   },
 
   {
-    productionName: 'Device',
+    productionName: 'Hoodie',
       description:'',
     action:'',
     price: 29,
-    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F3.jpg?alt=media&token=84b56b4d-ec7b-449c-ad74-f6da559791e6',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F10.png?alt=media&token=0128d88a-cca6-454c-b11a-2aefcde63a02',
     id: 3,
   },
   {
-    productionName: 'TV',
+    productionName: 'T-Shirt',
       description:'',
     action:'',
     price: 300,
-    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F4.jpg?alt=media&token=3b3ebfbf-ea73-440f-990c-68abbf2eae51',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F4.png?alt=media&token=d5fa7065-acc8-400b-931f-a7837be6fcad',
     id: 4,
   },
+ 
   {
-    productionName: 'Head Phone',
-      description:'',
-    action:'',
-    price: 240,
-    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F5.jpg?alt=media&token=9ba9e5d3-f3ce-4c4e-abbd-d9068c4ac2d0',
-    id: 2,
-  },
-  {
-    productionName: 'Tech',
+    productionName: 'T-shirt',
       description:'',
     action:'',
     price: 26,
-    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F6.jpg?alt=media&token=63076312-de58-4c18-ad06-43aea74a2908',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F5.png?alt=media&token=58b1b1f9-42fe-45d5-b7be-71fc71f83010',
     id: 5,
   },
   {
-    productionName: 'Phone',
+    productionName: 'T-shirt',
       description:'',
     action:'',
     price: 300,
-    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F10.jpg?alt=media&token=400dca73-ca13-4d88-a484-7feb176ec993',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F7.png?alt=media&token=d8ec1ba6-f32d-4f53-aa70-38ab6a0be4cf',
     id: 6,
   },
   {
-    productionName: 'Device',
+    productionName: 'Jeans',
     description:'',
     action:'',
     price: 24,
-    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F8.jpg?alt=media&token=21fc6550-1c9f-456e-bf34-9a60f0c57a19',
+    urlImage: 'https://firebasestorage.googleapis.com/v0/b/tinder-3a7a1.appspot.com/o/products%2F8.png?alt=media&token=51449f9b-5e2d-4339-929c-ef0e6f94a573',
     id: 7,
   }
  
@@ -319,13 +320,11 @@ setModalVisible(visible) {
   this.setState({modalVisible: visible});
 }
 currentIndex=(i)=>{
-
 this.setState({index:i});
-this.setState({modalVisible: true});
+//this.setState({modalVisible: true});
  console.log("currentIndex"+this.state.index);
 }
   swiperCards=()=>{
-   
    
   }
 
@@ -553,3 +552,4 @@ onSwipeAction= (swipeProduct,action) => {
   
 }
 
+console.ignoredYellowBox = ['Setting a timer'];
