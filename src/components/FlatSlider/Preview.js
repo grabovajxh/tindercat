@@ -85,7 +85,7 @@ export default (Preview = ({
       <TouchableOpacity
         style={[styles.videoContainer]}
         onPress={() => onPress(item)}>
-        <View style={[styles.imageContainer, styles.shadow]}>
+        <View style={[styles.imageContainer, styles.shadow]} key={item.key}>
           <Image
             style={[styles.videoPreview, active ? { width: 100,
               height: 100,
